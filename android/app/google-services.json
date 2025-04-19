@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "433161992592",
+    "project_id": "karachi-connect",
+    "storage_bucket": "karachi-connect.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433161992592:android:13f9e2ca32df0c7d4a1b15",
+        "android_client_info": {
+          "package_name": "com.example.karachi_connect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLEntsXjeDfDE6j68oinMULKwjmkBr8Vs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
