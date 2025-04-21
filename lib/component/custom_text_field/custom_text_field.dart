@@ -7,7 +7,14 @@ class CustomTextField extends StatelessWidget {
   final Widget? safixIcon;
   final Function(String)? onChanged;
   final FormFieldValidator<String>? validate;
-  const CustomTextField({super.key, this.controller, this.hintText, this.onChanged, this.validate, this.prefixIcon, this.safixIcon});
+  const CustomTextField(
+      {super.key,
+      this.controller,
+      this.hintText,
+      this.onChanged,
+      this.validate,
+      this.prefixIcon,
+      this.safixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +23,15 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       validator: validate,
       decoration: InputDecoration(
+        labelText: hintText,
+        labelStyle: const TextStyle(
+          color: Colors.black,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
         prefixIcon: prefixIcon,
-        suffixIcon:safixIcon ,
+        suffixIcon: safixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -27,7 +41,6 @@ class CustomTextField extends StatelessWidget {
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.grey),
       ),
-      
     );
   }
 }

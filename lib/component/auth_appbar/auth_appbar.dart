@@ -5,7 +5,20 @@ import 'package:karachi_connect/utils/constants/colors.dart';
 import 'package:karachi_connect/utils/styles/text_styles.dart';
 
 class AuthAppbar extends StatelessWidget {
-  const AuthAppbar({super.key});
+  final IconData? leadingIcon;
+  final bool dontHaveAccount, getstarted;
+  final String? buttonText, haveAccountText;
+  final Function()? onTap;
+  final Function()? onLeadingIconTap;
+  const AuthAppbar(
+      {super.key,
+      this.onTap,
+      this.onLeadingIconTap,
+      this.leadingIcon,
+      this.dontHaveAccount = false,
+      this.getstarted = false,
+      this.buttonText,
+      this.haveAccountText});
 
   @override
   Widget build(BuildContext context) {
@@ -13,24 +26,29 @@ class AuthAppbar extends StatelessWidget {
       forceMaterialTransparency: true,
       backgroundColor: AppColors.transparent,
       elevation: 0,
-      
-      leading:
-          const Icon(Icons.arrow_back_ios, color: AppColors.white, size: 20),
+      leading: InkWell(
+        onTap:onLeadingIconTap,
+        child: Icon(leadingIcon, color: AppColors.white, size: 20)),
       actions: [
-        const CustomText(
-          text: 'Don\'t have an account?',
-          style: AppTextStyles.white16w500,
-        ),
+        if (dontHaveAccount) ...[
+          CustomText(
+            text: haveAccountText ?? '',
+            style: AppTextStyles.white16w500,
+          ),
+        ],
         const SizedBox(
           width: 10,
         ),
-        CustomButton(
-          color: AppColors.white.withValues(alpha: 0.3),
-          text: 'Get Started',
-          textStyle: AppTextStyles.white14w500,
-          width: 100,
-          verticalPadding: 5,
-        ),
+        if (getstarted) ...[
+          CustomButton(
+            onTap: onTap,
+            color: AppColors.white.withValues(alpha: 0.3),
+            text: buttonText ?? '',
+            textStyle: AppTextStyles.white14w500,
+            width: 100,
+            verticalPadding: 5,
+          )
+        ],
         const SizedBox(
           width: 10,
         ),

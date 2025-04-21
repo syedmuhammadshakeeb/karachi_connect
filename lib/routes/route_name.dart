@@ -1,5 +1,6 @@
 class RouteName {
-  RouteName._();
-
+ 
   static const String main = 'main_screen'; 
+  static const String loginScreen = 'login_screen'; 
+  static const String signUpScreen = 'signup_screen'; 
 }
