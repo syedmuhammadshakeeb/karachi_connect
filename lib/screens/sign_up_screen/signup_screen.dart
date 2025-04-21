@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:karachi_connect/component/auth_appbar/auth_appbar.dart';
 import 'package:karachi_connect/component/auth_screen_component/auth_screen_component.dart';
+import 'package:karachi_connect/routes/route_name.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -12,9 +13,7 @@ class SignupScreen extends StatelessWidget {
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(100),
             child: AuthAppbar(
-              onTap: () {
-                
-              },
+              onTap: () {},
               dontHaveAccount: true,
               onLeadingIconTap: () {
                 Navigator.pop(context);

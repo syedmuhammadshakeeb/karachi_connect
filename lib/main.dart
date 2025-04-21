@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:karachi_connect/firebase_options.dart';
 import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/routes/routes.dart';
-import 'package:karachi_connect/screens/login_screen/login_screen.dart';
+
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute:RouteName.loginScreen,
+      initialRoute:RouteName.splashScreen,
   onGenerateRoute: Routes.generateRoute,
    
     );

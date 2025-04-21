@@ -4,6 +4,7 @@ import 'package:karachi_connect/screens/login_screen/login_screen.dart';
 
 import 'package:karachi_connect/screens/main_screen/main_screen.dart';
 import 'package:karachi_connect/screens/sign_up_screen/signup_screen.dart';
+import 'package:karachi_connect/screens/splash_screen/splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
 PageRoute getPageRoute(Widget child,
@@ -32,9 +33,11 @@ class Routes {
       case RouteName.signUpScreen:
         return getPageRoute(const SignupScreen(),
             transition: PageTransitionType.fade);
-      default:
-        return getPageRoute(const LoginScreen(),
+      case RouteName.splashScreen:
+        return getPageRoute(const SplashScreen(),
             transition: PageTransitionType.fade);
+      default:
+        throw Exception('Page not found: ${settings.name}'); 
     }
   }
 }
