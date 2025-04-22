@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:karachi_connect/component/app_name/app_name.dart';
 import 'package:karachi_connect/services/splash_service.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
 import 'package:karachi_connect/utils/constants/icons.dart';
@@ -42,12 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(AppIcons.splashSearchIcon),
-              ],
-            )
+         const AppName()
           ],
         ),
       ),

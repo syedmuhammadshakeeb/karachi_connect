@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:karachi_connect/routes/route_name.dart';
+import 'package:karachi_connect/screens/asking_signin_screen/asking_signin_screen.dart';
+import 'package:karachi_connect/screens/document_upload_screen/document_upload_screen.dart';
 import 'package:karachi_connect/screens/login_screen/login_screen.dart';
 
 import 'package:karachi_connect/screens/main_screen/main_screen.dart';
@@ -8,7 +10,7 @@ import 'package:karachi_connect/screens/splash_screen/splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
 PageRoute getPageRoute(Widget child,
-    {PageTransitionType? transition, int duration = 300}) {
+    {PageTransitionType? transition, int duration = 500}) {
   return PageTransition(
       child: child,
       childCurrent: child,
@@ -26,18 +28,29 @@ class Routes {
     switch (settings.name) {
       case RouteName.main:
         return getPageRoute(const MainScreen(),
-            transition: PageTransitionType.fade);
+            transition: PageTransitionType.leftToRight);
       case RouteName.loginScreen:
         return getPageRoute(const LoginScreen(),
-            transition: PageTransitionType.fade);
+            transition: PageTransitionType.leftToRight);
+      case RouteName.documentUploadScreen:
+        return getPageRoute(const DocumentUploadScreen(),
+            transition: PageTransitionType.leftToRight);
       case RouteName.signUpScreen:
-        return getPageRoute(const SignupScreen(),
-            transition: PageTransitionType.fade);
+        SignupScreenArguemnt args = settings.arguments as SignupScreenArguemnt;
+        return getPageRoute(
+            SignupScreen(
+              signUpAs: args.signUpAs,
+            ),
+            transition: PageTransitionType.leftToRight);
+
       case RouteName.splashScreen:
         return getPageRoute(const SplashScreen(),
-            transition: PageTransitionType.fade);
+            transition: PageTransitionType.leftToRight);
+      case RouteName.askingSignInScreen:
+        return getPageRoute(const AskingSigninScreen(),
+            transition: PageTransitionType.leftToRight);
       default:
-        throw Exception('Page not found: ${settings.name}'); 
+        throw Exception('Page not found: ${settings.name}');
     }
   }
 }

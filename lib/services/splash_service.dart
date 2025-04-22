@@ -5,8 +5,8 @@ import 'package:karachi_connect/routes/route_name.dart';
 
 class SplashService {
   void splashService(context) {
-    Timer.periodic(const Duration(seconds: 3), (val) {
-      Navigator.pushNamed(context, RouteName.loginScreen);
+    Timer.periodic(const Duration(seconds: 5), (val) {
+      Navigator.pushReplacementNamed(context, RouteName.loginScreen);
     });
   }
 }

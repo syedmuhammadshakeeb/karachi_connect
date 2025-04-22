@@ -4,15 +4,18 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? hintText;
   final Widget? prefixIcon;
+  final bool obscureText;
   final Widget? safixIcon;
-  final Function(String)? onChanged;
+  final Function(String)? onChanged, onVisibilityTap;
   final FormFieldValidator<String>? validate;
   const CustomTextField(
       {super.key,
+      this.obscureText =false,
       this.controller,
       this.hintText,
       this.onChanged,
       this.validate,
+      this.onVisibilityTap,
       this.prefixIcon,
       this.safixIcon});
 
@@ -21,6 +24,7 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       onChanged: onChanged,
+      obscureText: obscureText,
       validator: validate,
       decoration: InputDecoration(
         labelText: hintText,

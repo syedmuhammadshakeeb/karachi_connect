@@ -21,6 +21,18 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.black,
   );
+  static const TextStyle black16w400 = TextStyle(
+    fontSize: 16,
+    fontFamily: 'SFPRODISPLAY',
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+  );
+  static const TextStyle black12w600 = TextStyle(
+    fontSize: 12,
+    fontFamily: 'SFPRODISPLAY',
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+  );
   static const TextStyle grey14w500 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
@@ -33,10 +45,28 @@ class AppTextStyles {
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.black,
   );
+  static const TextStyle black14w600 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.black,
+  );
   static const TextStyle black16w500 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: AppColors.black,
+    fontFamily: 'SFPRODISPLAY',
+  );
+  static const TextStyle blue16w600 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.darkblue,
+    fontFamily: 'SFPRODISPLAY',
+  );
+  static const TextStyle blue14w500 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.darkblue,
     fontFamily: 'SFPRODISPLAY',
   );
   static const TextStyle white18w500 = TextStyle(
@@ -44,6 +74,18 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.white,
+  );
+  static const TextStyle grey6514w500 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.grey65,
+  );
+  static const TextStyle grey6516w600 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.grey65,
   );
   static const TextStyle white16w500 = TextStyle(
     fontSize: 16,
@@ -57,4 +99,20 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.white,
   );
+
+  // App name Style
+  static const TextStyle appNameblack = TextStyle(
+      fontSize: 30,
+      fontFamily: 'horizon',
+      fontWeight: FontWeight.w700,
+      color: AppColors.black,
+      letterSpacing: 2.3);
+  static const TextStyle appNameBlue = TextStyle(
+    fontSize: 30,
+    fontFamily: 'horizon',
+    fontWeight: FontWeight.w700,
+    letterSpacing: 2.3,
+    color: AppColors.darkblue,
+  );
+  // ------------------------------------------------- //
 }

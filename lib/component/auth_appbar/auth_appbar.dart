@@ -27,8 +27,8 @@ class AuthAppbar extends StatelessWidget {
       backgroundColor: AppColors.transparent,
       elevation: 0,
       leading: InkWell(
-        onTap:onLeadingIconTap,
-        child: Icon(leadingIcon, color: AppColors.white, size: 20)),
+          onTap: onLeadingIconTap,
+          child: Icon(leadingIcon, color: AppColors.black, size: 20)),
       actions: [
         if (dontHaveAccount) ...[
           CustomText(

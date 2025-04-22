@@ -9,10 +9,11 @@ class CustomButton extends StatelessWidget {
       this.text,
       this.textStyle,
       this.onTap,
+      this.bordercolor,
       this.verticalPadding,
       this.width,
       this.horizontalPadding});
-  final Color? color;
+  final Color? color, bordercolor;
   final String? text;
   final TextStyle? textStyle;
   final Function()? onTap;
@@ -30,6 +31,7 @@ class CustomButton extends StatelessWidget {
         margin: EdgeInsets.symmetric(
             horizontal: horizontalPadding ?? 0, vertical: verticalPadding ?? 0),
         decoration: BoxDecoration(
+          border: Border.all(color:bordercolor ??AppColors.transparent ),
           gradient: color != null
               ? null
               : const LinearGradient(colors: [
