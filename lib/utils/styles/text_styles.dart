@@ -9,6 +9,18 @@ class AppTextStyles {
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.white,
   );
+  static const TextStyle black18w500 = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.black,
+  );
+  static const TextStyle black18w700 = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.black,
+  );
   static const TextStyle white32w800 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w800,
@@ -33,11 +45,29 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.black,
   );
+  static const TextStyle black12w400 = TextStyle(
+    fontSize: 12,
+    fontFamily: 'SFPRODISPLAY',
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+  );
   static const TextStyle grey14w500 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.greyb4,
+  );
+  static const TextStyle black22wbold = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.black,
+  );
+  static const TextStyle black18wbold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.black,
   );
   static const TextStyle black14w500 = TextStyle(
     fontSize: 14,

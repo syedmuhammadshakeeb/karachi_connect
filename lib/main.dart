@@ -8,11 +8,16 @@ import 'package:karachi_connect/utils/constants/colors.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
-   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // Make the status bar transparent (optional)
-    statusBarIconBrightness: Brightness.dark, // Set the icons to black
-    systemNavigationBarColor: Colors.white, // Set the bottom navigation bar color (optional)
-    systemNavigationBarIconBrightness: Brightness.dark, // Set the icons of the bottom navigation to black (optional)
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor:
+        Colors.transparent, // Make the status bar transparent (optional)
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarDividerColor:
+        AppColors.transparent, // Set the icons to black
+    systemNavigationBarColor:
+        Colors.transparent, // Set the bottom navigation bar color (optional)
+    systemNavigationBarIconBrightness: Brightness
+        .dark, // Set the icons of the bottom navigation to black (optional)
   ));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

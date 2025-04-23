@@ -5,7 +5,9 @@ import 'package:karachi_connect/utils/styles/text_styles.dart';
 
 class AppName extends StatelessWidget {
   final Color? color;
-  const AppName({super.key, this.color});
+  final bool appIcon;
+  final double? fontSize;
+  const AppName({super.key, this.color, this.fontSize, this.appIcon = true});
 
   @override
   Widget build(BuildContext context) {
@@ -13,26 +15,32 @@ class AppName extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SvgPicture.asset(AppIcons.splashSearchIcon),
-        const SizedBox(
-          width: 10,
-        ),
+        if (appIcon == true) ...[
+          SvgPicture.asset(AppIcons.splashSearchIcon),
+          const SizedBox(
+            width: 10,
+          ),
+        ],
         RichText(
-            text: const TextSpan(
+            text: TextSpan(
                 text: 'I',
-                style: AppTextStyles.appNameblack,
+                style: AppTextStyles.appNameblack
+                    .copyWith(fontSize: fontSize ?? null),
                 children: [
               TextSpan(
                 text: 'N',
-                style: AppTextStyles.appNameBlue,
+                style: AppTextStyles.appNameBlue
+                    .copyWith(fontSize: fontSize ?? null),
               ),
               TextSpan(
                 text: 'NOVATE',
-                style: AppTextStyles.appNameblack,
+                style: AppTextStyles.appNameblack
+                    .copyWith(fontSize: fontSize ?? null),
               ),
               TextSpan(
                 text: ' HUB',
-                style: AppTextStyles.appNameBlue,
+                style: AppTextStyles.appNameBlue
+                    .copyWith(fontSize: fontSize ?? null),
               )
             ])),
       ],
