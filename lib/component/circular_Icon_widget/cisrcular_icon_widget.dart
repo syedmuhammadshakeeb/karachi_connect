@@ -16,7 +16,10 @@ class CisrcularIconWidget extends StatelessWidget {
         color: AppColors.transparent,
         border: Border.all(color: AppColors.greyb4, width: 1),
       ),
-      child: Center(child: Icon(icon)),
+      child: Center(
+          child: Icon(
+        icon,
+      )),
     );
   }
 }

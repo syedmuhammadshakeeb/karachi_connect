@@ -141,6 +141,12 @@ class AppTextStyles {
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.grey65,
   );
+  static const TextStyle grey6515w700 = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.grey65,
+  );
   static const TextStyle grey6516w600 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
