@@ -51,11 +51,23 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.black,
   );
+  static const TextStyle black20w700 = TextStyle(
+    fontSize: 20,
+    fontFamily: 'SFPRODISPLAY',
+    fontWeight: FontWeight.w700,
+    color: AppColors.black,
+  );
   static const TextStyle grey14w500 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.greyb4,
+  );
+  static const TextStyle grey6513w400 = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.grey65,
   );
   static const TextStyle black22wbold = TextStyle(
     fontSize: 22,
@@ -72,6 +84,18 @@ class AppTextStyles {
   static const TextStyle black14w500 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.black,
+  );
+  static const TextStyle black15w500 = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.black,
+  );
+  static const TextStyle black15w700 = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.black,
   );
@@ -107,6 +131,12 @@ class AppTextStyles {
   );
   static const TextStyle grey6514w500 = TextStyle(
     fontSize: 14,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.grey65,
+  );
+  static const TextStyle grey6515w500 = TextStyle(
+    fontSize: 15,
     fontWeight: FontWeight.w500,
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.grey65,

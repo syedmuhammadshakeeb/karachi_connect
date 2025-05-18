@@ -18,4 +18,10 @@ class AppIcons {
   static const String likeIcon = 'assets/icons/like.svg';
   static const String commentIcon = 'assets/icons/comment.svg';
   static const String searchField = 'assets/icons/search_field.svg';
+  static const String dobIcon = 'assets/icons/dob_icon.svg';
+  static const String dateIcon = 'assets/icons/date_icon.svg';
+  static const String professionIcon = 'assets/icons/profession_icon.svg';
+  static const String portfolioLinkIcon =
+      'assets/icons/portfolio_link_icon.svg';
+  static const String locationIcon = 'assets/icons/location_icon.svg';
 }
