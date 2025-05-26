@@ -3,6 +3,7 @@ import 'package:karachi_connect/component/chat_component/chat_profile_card.dart'
 import 'package:karachi_connect/component/custom_text_field/custom_text_field.dart';
 import 'package:karachi_connect/component/loading_image/loading_image.dart';
 import 'package:karachi_connect/component/text/custom_text.dart';
+import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
 import 'package:karachi_connect/utils/constants/icons.dart';
 import 'package:karachi_connect/utils/constants/images.dart';
@@ -71,7 +72,9 @@ class ChatScreen extends StatelessWidget {
                     lastMessage: 'Hi! how are you',
                     profileName: 'S. M. Shakeeb',
                     time: '03:09 am',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteName.chattingScreen);
+                    },
                     image: AppImages.person,
                     onlineColor: AppColors.blue07,
                   ),

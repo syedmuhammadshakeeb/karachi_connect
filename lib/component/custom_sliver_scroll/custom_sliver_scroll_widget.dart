@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:karachi_connect/bloc/profile_screen_bloc/profile_tabbar_bloc/profile_tabbar_bloc.dart';
 import 'package:karachi_connect/bloc/profile_screen_bloc/profile_tabbar_bloc/profile_tabbar_events.dart';
 import 'package:karachi_connect/bloc/profile_screen_bloc/profile_tabbar_bloc/profile_tabbar_state.dart';
-import 'package:karachi_connect/bloc/tab_bar_bloc/tabbar_bloc.dart';
-import 'package:karachi_connect/bloc/tab_bar_bloc/tabbar_states.dart';
 import 'package:karachi_connect/component/circular_Icon_widget/cisrcular_icon_widget.dart';
 import 'package:karachi_connect/component/custom_sliver_scroll/circular_profile_component.dart';
 import 'package:karachi_connect/component/custom_sliver_scroll/component/list_user_bio_widget.dart';
@@ -79,7 +77,7 @@ class _CustomSliverScrollWidgetState extends State<CustomSliverScrollWidget> {
   }
 
   void _scrollListener() {
-    const double threshold = 120.0;
+    double threshold = MediaQuery.of(context).size.width / 1.4;
     if (_scrollController.offset > threshold && !_isScrolled) {
       setState(() {
         _isScrolled = true;
@@ -133,7 +131,8 @@ class _CustomSliverScrollWidgetState extends State<CustomSliverScrollWidget> {
                             ),
                             SizedBox(width: 10),
                             CisrcularIconWidget(
-                              icon: Icons.chat_outlined,
+                              // icon: Icons.chat_outlined,
+                              svgIcon: AppIcons.chatIcon,
                               size: 36,
                             ),
                             SizedBox(
@@ -209,7 +208,7 @@ class _CustomSliverScrollWidgetState extends State<CustomSliverScrollWidget> {
                                           width: 10,
                                         ),
                                         const CisrcularIconWidget(
-                                          icon: Icons.chat_outlined,
+                                          svgIcon: AppIcons.chatIcon,
                                           size: 36,
                                         ),
                                         const SizedBox(
