@@ -46,6 +46,7 @@ dependencies:
   animated_text_kit: ^4.2.3
   dotted_border: ^2.1.0
   curved_labeled_navigation_bar: ^2.0.6
+  http: ^1.4.0
 
 dev_dependencies:
   flutter_test:

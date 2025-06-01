@@ -17,7 +17,7 @@ class AccountSucessfullScreen extends StatelessWidget {
       backgroundColor: AppColors.transparent,
       bottomNavigationBar: CustomButton(
         onTap: () {
-          Navigator.pushReplacementNamed(context, RouteName.main);
+          Navigator.pushReplacementNamed(context, RouteName.loginScreen);
         },
         color: AppColors.darkblue,
         verticalPadding: 20,

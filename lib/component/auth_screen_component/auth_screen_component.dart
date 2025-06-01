@@ -24,6 +24,7 @@ class AuthScreenComponent extends StatelessWidget {
   final bool? isSignInAuth;
   final List<bool>? obscureText;
   final List<TextEditingController>? controllers;
+  final TextEditingController? ntnController;
   final List<String>? credentialText;
   final List<Widget>? prefixicon;
   final List<Widget>? suffixIcon;
@@ -35,6 +36,7 @@ class AuthScreenComponent extends StatelessWidget {
   const AuthScreenComponent(
       {super.key,
       this.onVisisbiltTap,
+      this.ntnController,
       this.obscureText,
       this.welcomText,
       this.onforgetPasswordTap,
@@ -276,6 +278,16 @@ class AuthScreenComponent extends StatelessWidget {
                   image: AppIcons.cancelIcon,
                 ),
               )),
+          const SizedBox(
+            height: 15,
+          ),
+          CustomTextField(
+            
+            borderColor: AppColors.grey4d,
+            controller: ntnController,
+            prefixIcon: const Icon(Icons.note),
+            hintText: 'Enter NTN No.',
+          ),
         ],
       ),
     );

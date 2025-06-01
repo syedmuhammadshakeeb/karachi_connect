@@ -1,7 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:karachi_connect/firebase_options.dart';
+
 import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/routes/routes.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
@@ -19,10 +18,7 @@ void main() async {
     systemNavigationBarIconBrightness: Brightness
         .dark, // Set the icons of the bottom navigation to black (optional)
   ));
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  
   runApp(const MyApp());
 }
 
