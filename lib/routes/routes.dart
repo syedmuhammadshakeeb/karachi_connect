@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/screens/account_sucessfull_screen/account_sucessfull_screen.dart';
 import 'package:karachi_connect/screens/asking_signin_screen/asking_signin_screen.dart';
+import 'package:karachi_connect/screens/chatting_screen/chatting_screen.dart';
 import 'package:karachi_connect/screens/document_upload_screen/document_upload_screen.dart';
 import 'package:karachi_connect/screens/login_screen/login_screen.dart';
 
@@ -38,6 +39,9 @@ class Routes {
             transition: PageTransitionType.leftToRight);
       case RouteName.documentUploadScreen:
         return getPageRoute(const DocumentUploadScreen(),
+            transition: PageTransitionType.leftToRight);
+      case RouteName.chattingScreen:
+        return getPageRoute(const ChattingScreen(),
             transition: PageTransitionType.leftToRight);
       case RouteName.signUpScreen:
         SignupScreenArguemnt args = settings.arguments as SignupScreenArguemnt;
