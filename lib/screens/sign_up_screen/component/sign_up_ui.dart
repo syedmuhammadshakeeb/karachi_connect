@@ -1,0 +1,125 @@
+import 'package:flutter/material.dart';
+import 'package:karachi_connect/component/app_name/app_name.dart';
+import 'package:karachi_connect/component/button_with_icon/button_with_icon.dart';
+import 'package:karachi_connect/component/custom_button/custom_button.dart';
+import 'package:karachi_connect/component/custom_text_field/custom_text_field.dart';
+import 'package:karachi_connect/component/text/custom_text.dart';
+import 'package:karachi_connect/utils/constants/colors.dart';
+import 'package:karachi_connect/utils/constants/icons.dart';
+import 'package:karachi_connect/utils/constants/images.dart';
+import 'package:karachi_connect/utils/styles/text_styles.dart';
+
+class SignUpUi extends StatelessWidget {
+  final TextEditingController? nameControllers;
+  final TextEditingController? emailControllers;
+  final TextEditingController? phoneNoControllers;
+  final TextEditingController? passwordControllers;
+  final bool? obsecure;
+  final Function()? obsecureTap;
+  final Function()? onSignUpTap,
+      onForgetpasswordTap,
+      onGoogleTap,
+      loginNavigationTap;
+
+  const SignUpUi(
+      {super.key,
+      this.nameControllers,
+      this.emailControllers,
+      this.phoneNoControllers,
+      this.passwordControllers,
+      this.obsecure,
+      this.obsecureTap,
+      this.loginNavigationTap,
+      this.onSignUpTap,
+      this.onForgetpasswordTap,
+      this.onGoogleTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(AppImages.bgImage), fit: BoxFit.cover),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: ListView(
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.22),
+            children: [
+              const AppName(),
+              const SizedBox(
+                height: 40,
+              ),
+              CustomTextField(
+                controller: nameControllers,
+                prefixIcon: const Icon(Icons.person),
+                hintText: 'Enter Name',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextField(
+                controller: emailControllers ?? TextEditingController(),
+                prefixIcon: const Icon(Icons.alternate_email_outlined),
+                hintText: 'Enter Email',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextField(
+                controller: phoneNoControllers ?? TextEditingController(),
+                prefixIcon: const Icon(Icons.phone_outlined),
+                hintText: 'Enter Phone no.',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextField(
+                controller: passwordControllers ?? TextEditingController(),
+                obscureText: obsecure ?? false,
+                prefixIcon: const Icon(Icons.lock),
+                safixIcon: IconButton(
+                  icon: obsecure == true
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                  onPressed: obsecureTap,
+                ),
+                hintText: 'Enter Password',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                onTap: onSignUpTap,
+                color: AppColors.darkblue,
+                width: MediaQuery.of(context).size.width,
+                text: 'Sign Up',
+                textStyle: AppTextStyles.white16w500,
+                verticalPadding: 10,
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              InkWell(
+                onTap: loginNavigationTap,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: RichText(
+                      text: const TextSpan(
+                          text: 'Already have an account?',
+                          style: AppTextStyles.grey6516w600,
+                          children: [
+                        TextSpan(
+                          text: 'LogIn',
+                          style: AppTextStyles.blue16w600,
+                        )
+                      ])),
+                ),
+              ),
+            ],
+          )),
+    );
+  }
+}

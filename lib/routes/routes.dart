@@ -38,7 +38,16 @@ class Routes {
         return getPageRoute(const AccountSucessfullScreen(),
             transition: PageTransitionType.leftToRight);
       case RouteName.documentUploadScreen:
-        return getPageRoute(const DocumentUploadScreen(),
+        DocumentUploadScreenArgument args =
+            settings.arguments as DocumentUploadScreenArgument;
+        return getPageRoute(
+            DocumentUploadScreen(
+              nameController: args.nameController,
+              passwordController: args.passwordController,
+              phoneController: args.phoneController,
+              emailController: args.emailController,
+              role: args.role,
+            ),
             transition: PageTransitionType.leftToRight);
       case RouteName.chattingScreen:
         return getPageRoute(const ChattingScreen(),

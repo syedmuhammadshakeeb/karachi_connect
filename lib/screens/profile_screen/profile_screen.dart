@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:karachi_connect/component/custom_sliver_scroll/custom_sliver_scroll_widget.dart';
-import 'package:karachi_connect/screens/chat_screen/chat_screen.dart';
 import 'package:karachi_connect/screens/profile_screen/profile_body.dart';
 import 'package:karachi_connect/utils/constants/images.dart';
 

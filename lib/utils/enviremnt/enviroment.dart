@@ -1,5 +1,4 @@
 class Enviroment {
-  static const String investor = 'Investor';
-  static const String enterprenuer = 'Entrepreneur';
-
+  static const String investor = "investor";
+  static const String enterprenuer = "user";
 }

@@ -6,6 +6,8 @@ import 'package:karachi_connect/routes/routes.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+BuildContext? globalContext = navigatorKey.currentContext;
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor:
@@ -18,7 +20,7 @@ void main() async {
     systemNavigationBarIconBrightness: Brightness
         .dark, // Set the icons of the bottom navigation to black (optional)
   ));
-  
+
   runApp(const MyApp());
 }
 

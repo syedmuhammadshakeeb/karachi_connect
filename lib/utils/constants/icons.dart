@@ -32,4 +32,5 @@ class AppIcons {
   static const String videoCallIcon = 'assets/icons/video.svg';
   static const String phoneCallIcon = 'assets/icons/Call.svg';
   static const String cameraIcon = 'assets/icons/camera_icon.svg';
+  static const String fileIcon = 'assets/icons/file_icon.svg';
 }
