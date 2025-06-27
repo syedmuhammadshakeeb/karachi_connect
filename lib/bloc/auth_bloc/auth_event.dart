@@ -23,3 +23,8 @@ class UploadDocument extends AuthEvent{
 class ClearDocument extends AuthEvent{
 
 }
+class SetDocumentError extends AuthEvent {
+  final bool isError;
+
+  SetDocumentError(this.isError);
+}

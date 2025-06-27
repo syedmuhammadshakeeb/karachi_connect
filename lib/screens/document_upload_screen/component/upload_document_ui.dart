@@ -17,9 +17,11 @@ class UploadDocumentUi extends StatelessWidget {
   final FormFieldValidator<String>? ntnValidator;
   final String? filesName;
   final String? fileMb;
+  final bool documentUpload;
   const UploadDocumentUi(
       {super.key,
       this.onDocumentTap,
+      this.documentUpload = false,
       this.ntnController,
       this.ntnValidator,
       this.filesName,
@@ -60,12 +62,16 @@ class UploadDocumentUi extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.2,
                       width: MediaQuery.of(context).size.width - 80,
                       child: DottedBorder(
-                          options: const RectDottedBorderOptions(
+                          options: RectDottedBorderOptions(
                             strokeWidth: 2,
                             // borderType: BorderType.RRect,
                             dashPattern: [8, 8, 8, 8],
+                            strokeCap: StrokeCap.round,
+
                             // radius: const Radius.circular(15),
-                            color: AppColors.darkblue,
+                            color: documentUpload
+                                ? AppColors.red
+                                : AppColors.darkblue,
                           ),
                           child: Center(
                             child: Column(
@@ -101,6 +107,15 @@ class UploadDocumentUi extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (documentUpload == true) ...[
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  const CustomText(
+                    text: 'Document must be uploaded',
+                    style: AppTextStyles.red12w400,
+                  )
+                ],
                 if ((filesName != null && filesName?.isNotEmpty == true) &&
                     (fileMb != null && fileMb?.isNotEmpty == true)) ...[
                   Container(

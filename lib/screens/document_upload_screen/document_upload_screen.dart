@@ -37,16 +37,29 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
     return Form(
       key: _formKey,
       child: BlocProvider(
+        lazy: false,
         create: (context) => AuthBloc(),
         child: Scaffold(
           backgroundColor: AppColors.transparent,
-          bottomNavigationBar: CustomButton(
-            color: AppColors.darkblue,
-            verticalPadding: 20,
-            horizontalPadding: 30,
-            onTap: () {
-              if (_formKey.currentState?.validate() == true) {
-                context.read<AuthBloc>().add(SignupEvent(
+          bottomNavigationBar: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              return CustomButton(
+                color: AppColors.darkblue,
+                verticalPadding: 20,
+                horizontalPadding: 30,
+                onTap: () {
+                  final bloc = context.read<AuthBloc>();
+
+                  if (bloc.state.result == null ||
+                      bloc.state.result?.files.isEmpty == true) {
+                    bloc.add(SetDocumentError(true)); // we’ll add this event
+                    return;
+                  } else {
+                    bloc.add(SetDocumentError(false)); // remove error
+                  }
+
+                  if (_formKey.currentState?.validate() == true) {
+                    bloc.add(SignupEvent(
                       email: widget.emailController,
                       password: widget.passwordController,
                       name: widget.nameController,
@@ -54,28 +67,39 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                       ntn: ntnController,
                       role: widget.role,
                     ));
-              }
+                  }
+                },
+                text: 'Upload Document',
+                textStyle: AppTextStyles.white16w500,
+              );
             },
-            text: 'Upload Document',
-            textStyle: AppTextStyles.white16w500,
           ),
           body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state.isSucess == true) {
+              if (state.isSucess == true &&
+                  (state.result != null &&
+                      state.result?.files.isNotEmpty == true)) {
                 Navigator.pushNamed(context, RouteName.accountSucessfullScreen);
-              }
+              } else {}
             },
             child: BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 return UploadDocumentUi(
                     ntnController: ntnController,
+                    documentUpload: state.documentUpload,
                     onDocumentCanceltap: () {
-                      
+                      context.read<AuthBloc>().add(ClearDocument());
+                      state.result = null;
                     },
-                    fileMb: ((state.result?.files.first.size ?? 0) / 100000)
-                        .toStringAsFixed(1)
-                        .toString(),
-                    filesName: state.result?.files.first.name,
+                    fileMb: (state.result != null &&
+                            state.result?.files.isNotEmpty == true)
+                        ? ((state.result?.files.first.size ?? 0) / 100000)
+                            .toStringAsFixed(1)
+                        : null,
+                    filesName: (state.result != null &&
+                            state.result?.files.isNotEmpty == true)
+                        ? state.result?.files.first.name ?? ''
+                        : null,
                     ntnValidator: (value) {
                       if (value?.isEmpty ?? true) {
                         return 'NTN is required';

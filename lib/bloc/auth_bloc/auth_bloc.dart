@@ -9,10 +9,12 @@ import 'package:karachi_connect/services/auth_service.dart';
 import 'package:karachi_connect/utils/functions/error_handler.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(const AuthState()) {
+  AuthBloc() : super(AuthState()) {
     on<IsVisiblePassword>(isvisible);
     on<SignupEvent>(signupApi);
     on<UploadDocument>(uploadDocument);
+    on<ClearDocument>(clearDocument);
+    on<SetDocumentError>(setDocumentError);
   }
   AuthService authService = AuthService();
 
@@ -47,9 +49,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     FilePickerResult? result =
         await FilePicker.platform.pickFiles(allowMultiple: true);
     emit(state.copyWith(result: result));
-    if (result != null) {
+
+    if (result?.files != null && (result?.files.isNotEmpty == true)) {
       emit(state.copyWith(
-          files: result.paths.map((path) => File(path!)).toList()));
+        files: result?.paths.map((path) => File(path!)).toList(),
+      ));
     } else {
       null;
     }
@@ -58,6 +62,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   // Clear File data
- 
+  Future<void> clearDocument(
+      ClearDocument event, Emitter<AuthState> emit) async {
+    print("Clearing selected files...");
+    emit(state.copyWith(
+      files: null,
+      result: null,
+    ));
+  }
+
+  setDocumentError(SetDocumentError event, Emitter<AuthState> emit) {
+    emit(state.copyWith(documentUpload: event.isError));
+  }
+
   // Login Api
 }
