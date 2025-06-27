@@ -7,6 +7,7 @@ class CustomButton extends StatelessWidget {
       {super.key,
       this.color,
       this.text,
+
       this.textStyle,
       this.onTap,
       this.bordercolor,
@@ -20,6 +21,7 @@ class CustomButton extends StatelessWidget {
   final double? verticalPadding;
   final double? horizontalPadding;
   final double? width;
+  
 
   @override
   Widget build(BuildContext context) {

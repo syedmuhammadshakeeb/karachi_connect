@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
 import 'package:karachi_connect/utils/styles/text_styles.dart';
 
-
 import '../text/custom_text.dart';
 
 showSnackBar(
@@ -17,20 +16,15 @@ showSnackBar(
     ..showSnackBar(
       SnackBar(
         elevation: 0,
+
         behavior: SnackBarBehavior.floating,
+
         duration: Duration(milliseconds: ((duration ?? 2) * 1000).toInt()),
         shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color:
-                isSuccess
-                    ? AppColors.blue07
-                    : isCancel
-                    ? AppColors.pinkdd
-                    : AppColors.pinkdd,
-          ),
+          side: BorderSide(color: isSuccess ? AppColors.blue07 : AppColors.red),
           borderRadius: BorderRadius.circular(8),
         ),
-        margin: const EdgeInsets.all(20),
+        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
         backgroundColor:
             // ThemeState.isDarkMode(context)
             //     ? AppColors.kBlack1E
@@ -38,9 +32,8 @@ showSnackBar(
             //     :
             (isSuccess
                 ? const Color(0xffF5FBFB) // .fromRGBO(135, 211, 209, 0.08)
-                : isCancel
-                ? const Color(0xffFEF1E0) // .fromRGBO(251, 199, 132, 0.25)
-                : const Color(0xffFEE8E2)), // .fromRGBO(251, 165, 141, 0.25),
+                : Colors.red // .fromRGBO(251, 199, 132, 0.25)
+            ), // .fromRGBO(251, 165, 141, 0.25),
         content: CustomText(
           text: message.replaceAll('-', ' '),
           maxLines: 2,
@@ -50,11 +43,7 @@ showSnackBar(
             color:
                 //  ThemeState.isDarkMode(context)
                 //     ?
-                (isSuccess
-                    ? AppColors.blue07
-                    : isCancel
-                    ? AppColors.pinkdd
-                    : AppColors.pinkdd),
+                (isSuccess ? AppColors.black : AppColors.white),
 
             // : AppColors.kGrey
           ),

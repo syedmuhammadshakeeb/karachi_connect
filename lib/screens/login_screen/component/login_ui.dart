@@ -15,21 +15,24 @@ class LoginUi extends StatelessWidget {
   final Function()? onsignupNavigationTap;
   final Function()? ongoogleTap;
   final Function()? obsecureTap;
+  final FormFieldValidator<String>? emailValidator;
+  final FormFieldValidator<String>? passwordValidator;
   final bool? obsecure;
   final TextEditingController? passwordControllers;
   final TextEditingController? emailControllers;
 
-  const LoginUi({
-    super.key,
-    this.onForgetPasswordTap,
-    this.onLoginTap,
-    this.onsignupNavigationTap,
-    this.emailControllers,
-    this.passwordControllers,
-    this.obsecureTap,
-    this.obsecure,
-    this.ongoogleTap,
-  });
+  const LoginUi(
+      {super.key,
+      this.onForgetPasswordTap,
+      this.onLoginTap,
+      this.onsignupNavigationTap,
+      this.emailControllers,
+      this.passwordControllers,
+      this.obsecureTap,
+      this.obsecure,
+      this.ongoogleTap,
+      this.emailValidator,
+      this.passwordValidator});
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +77,7 @@ class LoginUi extends StatelessWidget {
               CustomTextField(
                 controller: emailControllers ?? TextEditingController(),
                 prefixIcon: const Icon(Icons.alternate_email_outlined),
+                validate: emailValidator,
                 hintText: 'Enter Email',
               ),
               const SizedBox(
@@ -83,6 +87,7 @@ class LoginUi extends StatelessWidget {
                 controller: passwordControllers ?? TextEditingController(),
                 obscureText: obsecure ?? false,
                 prefixIcon: const Icon(Icons.lock),
+                validate: passwordValidator,
                 safixIcon: IconButton(
                   icon: obsecure == true
                       ? const Icon(Icons.visibility_off)

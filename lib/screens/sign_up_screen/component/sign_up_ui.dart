@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:karachi_connect/component/app_name/app_name.dart';
-import 'package:karachi_connect/component/button_with_icon/button_with_icon.dart';
 import 'package:karachi_connect/component/custom_button/custom_button.dart';
 import 'package:karachi_connect/component/custom_text_field/custom_text_field.dart';
-import 'package:karachi_connect/component/text/custom_text.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
-import 'package:karachi_connect/utils/constants/icons.dart';
 import 'package:karachi_connect/utils/constants/images.dart';
 import 'package:karachi_connect/utils/styles/text_styles.dart';
 
@@ -14,7 +11,13 @@ class SignUpUi extends StatelessWidget {
   final TextEditingController? emailControllers;
   final TextEditingController? phoneNoControllers;
   final TextEditingController? passwordControllers;
+  final FormFieldValidator<String>? nameValidator;
+  final FormFieldValidator<String>? emailValidator;
+  final FormFieldValidator<String>? passwordValidator;
+  final GlobalKey<FormFieldState<String>>? passwordKey;
+  final FormFieldValidator<String>? phoneValidator;
   final bool? obsecure;
+  final String? passwordError;
   final Function()? obsecureTap;
   final Function()? onSignUpTap,
       onForgetpasswordTap,
@@ -25,8 +28,14 @@ class SignUpUi extends StatelessWidget {
       {super.key,
       this.nameControllers,
       this.emailControllers,
+      this.emailValidator,
+      this.passwordKey,
+      this.passwordError,
+      this.phoneValidator,
+      this.passwordValidator,
       this.phoneNoControllers,
       this.passwordControllers,
+      this.nameValidator,
       this.obsecure,
       this.obsecureTap,
       this.loginNavigationTap,
@@ -55,6 +64,7 @@ class SignUpUi extends StatelessWidget {
               CustomTextField(
                 controller: nameControllers,
                 prefixIcon: const Icon(Icons.person),
+                validate:nameValidator ,
                 hintText: 'Enter Name',
               ),
               const SizedBox(
@@ -63,6 +73,7 @@ class SignUpUi extends StatelessWidget {
               CustomTextField(
                 controller: emailControllers ?? TextEditingController(),
                 prefixIcon: const Icon(Icons.alternate_email_outlined),
+                validate: emailValidator,
                 hintText: 'Enter Email',
               ),
               const SizedBox(
@@ -70,6 +81,7 @@ class SignUpUi extends StatelessWidget {
               ),
               CustomTextField(
                 controller: phoneNoControllers ?? TextEditingController(),
+                validate: phoneValidator,
                 prefixIcon: const Icon(Icons.phone_outlined),
                 hintText: 'Enter Phone no.',
               ),
@@ -77,10 +89,15 @@ class SignUpUi extends StatelessWidget {
                 height: 20,
               ),
               CustomTextField(
+                errorText: passwordError,
+                key:passwordKey ,
                 controller: passwordControllers ?? TextEditingController(),
                 obscureText: obsecure ?? false,
                 prefixIcon: const Icon(Icons.lock),
+                validate: passwordValidator,
+                
                 safixIcon: IconButton(
+
                   icon: obsecure == true
                       ? const Icon(Icons.visibility_off)
                       : const Icon(Icons.visibility),
@@ -92,6 +109,7 @@ class SignUpUi extends StatelessWidget {
                 height: 20,
               ),
               CustomButton(
+              
                 onTap: onSignUpTap,
                 color: AppColors.darkblue,
                 width: MediaQuery.of(context).size.width,

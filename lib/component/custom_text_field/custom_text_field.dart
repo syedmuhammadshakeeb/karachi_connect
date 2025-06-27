@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
+import 'package:karachi_connect/utils/styles/text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? hintText;
   final Widget? prefixIcon;
   final bool obscureText;
+  final String? errorText;
   final Color? fieldColor;
   final Color? borderColor;
   final TextStyle? textStyle;
@@ -24,6 +26,7 @@ class CustomTextField extends StatelessWidget {
       this.validate,
       this.onVisibilityTap,
       this.prefixIcon,
+      this.errorText,
       this.safixIcon});
 
   @override
@@ -35,6 +38,8 @@ class CustomTextField extends StatelessWidget {
       validator: validate,
       decoration: InputDecoration(
         labelText: hintText,
+        errorText: errorText,
+        errorStyle: AppTextStyles.red12w400,
         labelStyle: textStyle ??
             const TextStyle(
               color: Colors.black,

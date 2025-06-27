@@ -16,6 +16,7 @@ class UploadDocumentUi extends StatelessWidget {
   final TextEditingController? ntnController;
   final FormFieldValidator<String>? ntnValidator;
   final String? filesName;
+  final String? passwordErrorMessage;
   final String? fileMb;
   final bool documentUpload;
   const UploadDocumentUi(
@@ -23,6 +24,7 @@ class UploadDocumentUi extends StatelessWidget {
       this.onDocumentTap,
       this.documentUpload = false,
       this.ntnController,
+      this.passwordErrorMessage,
       this.ntnValidator,
       this.filesName,
       this.onDocumentCanceltap,

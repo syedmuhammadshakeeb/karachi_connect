@@ -15,12 +15,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<UploadDocument>(uploadDocument);
     on<ClearDocument>(clearDocument);
     on<SetDocumentError>(setDocumentError);
+    on<PasswordValidator>(passwordValidator);
+    on<LoginEvent>(getLogin);
   }
   AuthService authService = AuthService();
 
   // Signup Api
 
   Future<void> signupApi(SignupEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(isLaoding: true));
     try {
       await authService.signUpApi(
         role: event.role ?? 'investor',
@@ -30,10 +33,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         phone: event.phoneNo?.text,
         ntn: event.ntn?.text,
       );
-      emit(state.copyWith(isSucess: true));
+      emit(state.copyWith(
+        isSucess: true,
+        isLaoding: false,
+      ));
     } catch (e) {
       log("SignUpApi Error: $e");
-      emit(state.copyWith(isSucess: false));
+      emit(state.copyWith(isSucess: false, isLaoding: false));
       ErrorHandler.getErrorMsgFromException(e, isShowToast: true);
     }
   }
@@ -75,5 +81,51 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(documentUpload: event.isError));
   }
 
+  // Password Validator
+  Future<void> passwordValidator(
+      PasswordValidator event, Emitter<AuthState> emit) async {
+    String? passwordError = _validatePassword(event.value);
+    emit(state.copyWith(
+        passwordError:
+            passwordError)); // Update the state with the error or null
+  }
+
+// Password Validation Logic
+  String? _validatePassword(String? value) {
+    // Ensure password is not empty
+    if (value == null && (value?.isEmpty == true)) {
+      return 'Password is required';
+    }
+
+    // Define regex for strong password
+    String passwordPattern =
+        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$';
+
+    RegExp regex = RegExp(passwordPattern);
+
+    // If the password doesn't match the pattern, return the error message
+    if (!regex.hasMatch(value!)) {
+      return 'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character';
+    } else {
+      state.passwordError = null;
+      return null;
+    } // Password is valid
+  }
+
   // Login Api
+  Future getLogin(LoginEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(isLaoding: true));
+    try {
+      await authService.loginApi(
+          email: event.email?.text, password: event.password?.text);
+      emit(state.copyWith(isLaoding: false, isSucess: true));
+    } catch (e) {
+      log("getLogin Error: $e");
+      emit(state.copyWith(
+        isLaoding: false,
+        isSucess: false,
+      ));
+      ErrorHandler.getErrorMsgFromException(e, isShowToast: true);
+    }
+  }
 }

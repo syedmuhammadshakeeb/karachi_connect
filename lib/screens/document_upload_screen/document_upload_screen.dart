@@ -5,6 +5,8 @@ import 'package:karachi_connect/bloc/auth_bloc/auth_event.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_state.dart';
 
 import 'package:karachi_connect/component/custom_button/custom_button.dart';
+import 'package:karachi_connect/component/custom_snakbar/custom_snakbar.dart';
+import 'package:karachi_connect/component/loading_component/loading_component.dart';
 import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/screens/document_upload_screen/component/upload_document_ui.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
@@ -40,9 +42,11 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
         lazy: false,
         create: (context) => AuthBloc(),
         child: Scaffold(
-          backgroundColor: AppColors.transparent,
           bottomNavigationBar: BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
+              if (state.isLaoding == true) {
+                return const SizedBox.shrink();
+              }
               return CustomButton(
                 color: AppColors.darkblue,
                 verticalPadding: 20,
@@ -52,21 +56,28 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
 
                   if (bloc.state.result == null ||
                       bloc.state.result?.files.isEmpty == true) {
-                    bloc.add(SetDocumentError(true)); // we’ll add this event
+                    bloc.add(SetDocumentError(true));
                     return;
                   } else {
-                    bloc.add(SetDocumentError(false)); // remove error
+                    bloc.add(SetDocumentError(false));
                   }
 
                   if (_formKey.currentState?.validate() == true) {
-                    bloc.add(SignupEvent(
-                      email: widget.emailController,
-                      password: widget.passwordController,
-                      name: widget.nameController,
-                      phoneNo: widget.phoneController,
-                      ntn: ntnController,
-                      role: widget.role,
-                    ));
+                    try {
+                      bloc.add(SignupEvent(
+                        email: widget.emailController,
+                        password: widget.passwordController,
+                        name: widget.nameController,
+                        phoneNo: widget.phoneController,
+                        ntn: ntnController,
+                        role: widget.role,
+                      ));
+                    } catch (e) {
+                      showSnackBar(
+                        context,
+                        "Email already exists",
+                      );
+                    }
                   }
                 },
                 text: 'Upload Document',
@@ -74,16 +85,28 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
               );
             },
           ),
+          backgroundColor: AppColors.transparent,
           body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state.isSucess == true &&
                   (state.result != null &&
                       state.result?.files.isNotEmpty == true)) {
-                Navigator.pushNamed(context, RouteName.accountSucessfullScreen);
-              } else {}
+                widget.emailController?.clear();
+                widget.passwordController?.clear();
+                widget.nameController?.clear();
+                widget.phoneController?.clear();
+                ntnController.clear();
+                Navigator.pushReplacementNamed(
+                    context, RouteName.accountSucessfullScreen);
+              } else {
+                null;
+              }
             },
             child: BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
+                if (state.isLaoding) {
+                  return const LoadingComponent();
+                }
                 return UploadDocumentUi(
                     ntnController: ntnController,
                     documentUpload: state.documentUpload,
@@ -102,7 +125,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                         : null,
                     ntnValidator: (value) {
                       if (value?.isEmpty ?? true) {
-                        return 'NTN is required';
+                        return 'This field is required';
                       } else {
                         return null;
                       }

@@ -33,4 +33,6 @@ class AppIcons {
   static const String phoneCallIcon = 'assets/icons/Call.svg';
   static const String cameraIcon = 'assets/icons/camera_icon.svg';
   static const String fileIcon = 'assets/icons/file_icon.svg';
+  // =============>> json loader lottie animation <<=================
+  static const String loader = 'assets/json/loader.json';
 }

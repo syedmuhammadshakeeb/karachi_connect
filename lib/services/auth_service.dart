@@ -38,4 +38,17 @@ class AuthService {
       rethrow;
     }
   }
+
+  Future loginApi({ String? email,  String? password}) async {
+    Map<String, dynamic> data = {"email": email, "password": password};
+    try {
+      final response = await dio.post(AppUrls.loginEndpoint, data: data);
+      if (response.statusCode == 200) {
+        log("response====>${response.data}");
+        return response.data;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
