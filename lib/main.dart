@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/routes/routes.dart';
+
 import 'package:karachi_connect/utils/constants/colors.dart';
+import 'package:karachi_connect/utils/functions/list_of_bloc.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 BuildContext? globalContext = navigatorKey.currentContext;
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor:
-        Colors.transparent, // Make the status bar transparent (optional)
+    statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarDividerColor:
-        AppColors.transparent, // Set the icons to black
-    systemNavigationBarColor:
-        Colors.transparent, // Set the bottom navigation bar color (optional)
-    systemNavigationBarIconBrightness: Brightness
-        .dark, // Set the icons of the bottom navigation to black (optional)
+    systemNavigationBarDividerColor: AppColors.transparent,
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarIconBrightness: Brightness.dark,
   ));
 
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: ListOfBloc().listOfBloc(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -35,6 +39,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+   
   }
 
   @override

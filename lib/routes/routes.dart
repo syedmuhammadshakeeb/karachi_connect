@@ -7,6 +7,7 @@ import 'package:karachi_connect/screens/document_upload_screen/document_upload_s
 import 'package:karachi_connect/screens/login_screen/login_screen.dart';
 
 import 'package:karachi_connect/screens/main_screen/main_screen.dart';
+import 'package:karachi_connect/screens/search_screen/search_screen.dart';
 import 'package:karachi_connect/screens/sign_up_screen/signup_screen.dart';
 import 'package:karachi_connect/screens/splash_screen/splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -30,6 +31,9 @@ class Routes {
     switch (settings.name) {
       case RouteName.main:
         return getPageRoute(const MainScreen(),
+            transition: PageTransitionType.leftToRight);
+      case RouteName.searchScreen:
+        return getPageRoute(const SearchScreen(),
             transition: PageTransitionType.leftToRight);
       case RouteName.loginScreen:
         return getPageRoute(const LoginScreen(),

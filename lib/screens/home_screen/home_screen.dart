@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
 import 'package:karachi_connect/bloc/tab_bar_bloc/tabbar_bloc.dart';
 import 'package:karachi_connect/bloc/tab_bar_bloc/tabbar_events.dart';
 import 'package:karachi_connect/bloc/tab_bar_bloc/tabbar_states.dart';
 import 'package:karachi_connect/component/app_bar/app_bar.dart';
 import 'package:karachi_connect/component/home_post_card/home_post_card.dart';
 import 'package:karachi_connect/component/home_post_header/home_post_header.dart';
+import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
 import 'package:karachi_connect/utils/constants/images.dart';
 
@@ -14,6 +16,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(("user role ==> ${AuthBloc.userRole}=====>${AuthBloc.userId}"));
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: AppColors.transparent,
@@ -24,7 +27,9 @@ class HomeScreen extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: CustomAppBar(
-                  searchTap: () {},
+                  searchTap: () {
+                    Navigator.pushNamed(context, RouteName.searchScreen);
+                  },
                   notificationTap: () {},
                   chatTap: () {
                     context.read<TabbarBloc>().add(TabValueSelector(3));

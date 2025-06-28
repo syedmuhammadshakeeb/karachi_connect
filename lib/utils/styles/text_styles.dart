@@ -51,6 +51,12 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.red,
   );
+  static const TextStyle red14w600 = TextStyle(
+    fontSize: 14,
+    fontFamily: 'SFPRODISPLAY',
+    fontWeight: FontWeight.w600,
+    color: AppColors.red,
+  );
   static const TextStyle black12w400 = TextStyle(
     fontSize: 12,
     fontFamily: 'SFPRODISPLAY',
@@ -129,6 +135,12 @@ class AppTextStyles {
     color: AppColors.darkblue,
     fontFamily: 'SFPRODISPLAY',
   );
+  static const TextStyle blue18w700 = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: AppColors.darkblue,
+    fontFamily: 'SFPRODISPLAY',
+  );
   static const TextStyle blue14w500 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
@@ -138,6 +150,12 @@ class AppTextStyles {
   static const TextStyle white18w500 = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w500,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.white,
+  );
+  static const TextStyle white18w700 = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.white,
   );

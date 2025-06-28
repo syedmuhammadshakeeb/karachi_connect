@@ -32,6 +32,7 @@ class IsVisiblePassword extends AuthEvent {}
 class UploadDocument extends AuthEvent {}
 
 class ClearDocument extends AuthEvent {}
+class IsAuthenticated extends AuthEvent {}
 
 class SetDocumentError extends AuthEvent {
   final bool isError;

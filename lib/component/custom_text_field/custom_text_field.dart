@@ -7,18 +7,23 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   final Widget? prefixIcon;
   final bool obscureText;
+  final int? mixLines;
   final String? errorText;
   final Color? fieldColor;
+  final TextInputType? keyboardType;
   final Color? borderColor;
   final TextStyle? textStyle;
   final Widget? safixIcon;
-  final Function(String)? onChanged, onVisibilityTap;
+  final Function(String)? onChanged;
+  final Function(String)? onVisibilityTap;
   final FormFieldValidator<String>? validate;
   const CustomTextField(
       {super.key,
       this.textStyle,
+      this.keyboardType,
       this.borderColor,
       this.obscureText = false,
+      this.mixLines,
       this.controller,
       this.fieldColor,
       this.hintText,
@@ -36,6 +41,9 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       obscureText: obscureText,
       validator: validate,
+      keyboardType: keyboardType,
+      maxLines: mixLines ?? 1,
+      textAlign: TextAlign.start,
       decoration: InputDecoration(
         labelText: hintText,
         errorText: errorText,
@@ -51,6 +59,8 @@ class CustomTextField extends StatelessWidget {
         fillColor: fieldColor ?? AppColors.transparent,
         filled: true,
         suffixIcon: safixIcon,
+        hintTextDirection: TextDirection.ltr,
+        alignLabelWithHint: true,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: borderColor ?? AppColors.grey65)),

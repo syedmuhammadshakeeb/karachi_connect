@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
 // import 'package:kashta_tours_app/local_storage/store_device_id.dart';
 // import 'package:kashta_tours_app/local_storage/user_token.dart';
 
@@ -31,13 +32,13 @@ class ApiInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    // final token = await UserToken.getUserToken();
+    final token = AuthBloc.userToken;
     // final devceId = await StoreDeviceId.getDeviceId();
     // final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    // if (token != null && token.isNotEmpty) {
-    //   options.headers['X-Auth-Token'] = token;
-    //   options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
-    // }
+    if (token != null && token.isNotEmpty) {
+      options.headers['X-Auth-Token'] = token;
+      options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+    }
     // options.headers['X-App-Version'] = packageInfo.version;
     // options.headers['X-Device-Id'] = devceId;
     // log("api headers: ${options.headers}");

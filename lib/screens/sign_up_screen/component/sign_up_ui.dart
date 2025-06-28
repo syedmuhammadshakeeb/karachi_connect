@@ -80,8 +80,10 @@ class SignUpUi extends StatelessWidget {
                 height: 20,
               ),
               CustomTextField(
+                keyboardType: TextInputType.number,
                 controller: phoneNoControllers ?? TextEditingController(),
                 validate: phoneValidator,
+                
                 prefixIcon: const Icon(Icons.phone_outlined),
                 hintText: 'Enter Phone no.',
               ),

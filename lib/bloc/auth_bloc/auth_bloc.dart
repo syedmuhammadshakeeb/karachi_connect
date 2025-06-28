@@ -6,6 +6,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_event.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_state.dart';
 import 'package:karachi_connect/services/auth_service.dart';
+import 'package:karachi_connect/services/shared_preference/shared_preference.dart';
+import 'package:karachi_connect/utils/enviremnt/enviroment.dart';
 import 'package:karachi_connect/utils/functions/error_handler.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -17,8 +19,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SetDocumentError>(setDocumentError);
     on<PasswordValidator>(passwordValidator);
     on<LoginEvent>(getLogin);
+    on<IsAuthenticated>(isAuthenticated);
   }
   AuthService authService = AuthService();
+  static String? userRole;
+  static String? userId;
+  static String? userToken;
 
   // Signup Api
 
@@ -87,38 +93,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     String? passwordError = _validatePassword(event.value);
     emit(state.copyWith(
         passwordError:
-            passwordError)); // Update the state with the error or null
+            passwordError)); 
   }
 
 // Password Validation Logic
   String? _validatePassword(String? value) {
-    // Ensure password is not empty
+   
     if (value == null && (value?.isEmpty == true)) {
       return 'Password is required';
     }
 
-    // Define regex for strong password
+  
     String passwordPattern =
         r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$';
 
     RegExp regex = RegExp(passwordPattern);
 
-    // If the password doesn't match the pattern, return the error message
+   
     if (!regex.hasMatch(value!)) {
       return 'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character';
     } else {
       state.passwordError = null;
       return null;
-    } // Password is valid
+    } 
   }
 
   // Login Api
   Future getLogin(LoginEvent event, Emitter<AuthState> emit) async {
     emit(state.copyWith(isLaoding: true));
     try {
-      await authService.loginApi(
+      final user = await authService.loginApi(
           email: event.email?.text, password: event.password?.text);
-      emit(state.copyWith(isLaoding: false, isSucess: true));
+
+      print("user role before ${state.userData}");
+      emit(state.copyWith(isLaoding: false, isSucess: true, userData: user));
+      print("user role after ${state.userData?.id}");
+
+      userRole = state.userData?.role;
+      userId = state.userData?.id;
+      userToken = state.userData?.token;
+      SharedPreferenceService.setString(userToken ?? '', Enviroment.getToken);
     } catch (e) {
       log("getLogin Error: $e");
       emit(state.copyWith(
@@ -126,6 +140,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         isSucess: false,
       ));
       ErrorHandler.getErrorMsgFromException(e, isShowToast: true);
+    }
+  }
+
+  // check user authenticated or not
+  Future isAuthenticated(IsAuthenticated event, Emitter<AuthState> emit) async {
+    String? token =
+        await SharedPreferenceService.getString(Enviroment.getToken);
+
+    if (token == null || token.isEmpty) {
+      emit(state.copyWith(isauthticated: false));
+      print("User not authenticated");
+    } else {
+   
+      userToken = token;
+
+      emit(state.copyWith(isauthticated: true));
+      print("User authenticated");
     }
   }
 }

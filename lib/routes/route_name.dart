@@ -8,4 +8,5 @@ class RouteName {
   static const String documentUploadScreen = 'documentUploadScreen_screen'; 
   static const String accountSucessfullScreen = 'accountSucessfullScreen_screen'; 
   static const String chattingScreen = 'chatting_screen'; 
+  static const String searchScreen = 'search_screen'; 
 }
