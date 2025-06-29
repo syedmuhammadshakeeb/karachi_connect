@@ -19,10 +19,9 @@ class AuthState {
       this.isSucess = false,
       this.files,
       this.passwordError,
-      this.isauthticated =false,
+      this.isauthticated = false,
       this.isLaoding = false,
       this.result,
-
       this.userData,
       this.documentUpload = false});
   AuthState copyWith(

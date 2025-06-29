@@ -91,31 +91,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> passwordValidator(
       PasswordValidator event, Emitter<AuthState> emit) async {
     String? passwordError = _validatePassword(event.value);
-    emit(state.copyWith(
-        passwordError:
-            passwordError)); 
+    emit(state.copyWith(passwordError: passwordError));
   }
 
 // Password Validation Logic
   String? _validatePassword(String? value) {
-   
     if (value == null && (value?.isEmpty == true)) {
       return 'Password is required';
     }
 
-  
     String passwordPattern =
         r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$';
 
     RegExp regex = RegExp(passwordPattern);
 
-   
     if (!regex.hasMatch(value!)) {
       return 'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character';
     } else {
       state.passwordError = null;
       return null;
-    } 
+    }
   }
 
   // Login Api
@@ -129,10 +124,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(isLaoding: false, isSucess: true, userData: user));
       print("user role after ${state.userData?.id}");
 
-      userRole = state.userData?.role;
-      userId = state.userData?.id;
-      userToken = state.userData?.token;
-      SharedPreferenceService.setString(userToken ?? '', Enviroment.getToken);
+      SharedPreferenceService.setString(
+          state.userData?.token ?? '', Enviroment.getToken);
+      SharedPreferenceService.setString(
+          state.userData?.role ?? '', Enviroment.getRole);
+      SharedPreferenceService.setString(
+          state.userData?.id ?? '', Enviroment.getid);
+      userToken = user?.token;
+      userRole = user?.role;
+      userId = user?.id;
     } catch (e) {
       log("getLogin Error: $e");
       emit(state.copyWith(
@@ -147,16 +147,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future isAuthenticated(IsAuthenticated event, Emitter<AuthState> emit) async {
     String? token =
         await SharedPreferenceService.getString(Enviroment.getToken);
+    String? id = await SharedPreferenceService.getString(Enviroment.getid);
+    String? role = await SharedPreferenceService.getString(Enviroment.getRole);
 
     if (token == null || token.isEmpty) {
       emit(state.copyWith(isauthticated: false));
       print("User not authenticated");
     } else {
-   
       userToken = token;
 
+      userId = id;
+      userRole = role;
+
       emit(state.copyWith(isauthticated: true));
-      print("User authenticated");
+      print("User authenticated ${userToken} ${userId} ${userRole}");
     }
   }
 }

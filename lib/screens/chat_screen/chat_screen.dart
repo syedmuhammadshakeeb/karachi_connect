@@ -15,42 +15,39 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       backgroundColor: AppColors.transparent,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(150),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            forceMaterialTransparency: true,
-            backgroundColor: AppColors.blue07.withValues(alpha: 0.1),
-            title: const CustomText(
-              text: 'Inbox',
-              style: AppTextStyles.black22wbold,
-            ),
-            bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(50),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: CustomTextField(
-                    hintText: 'Search...',
-                    fieldColor: AppColors.blue07.withValues(alpha: 0.05),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(12.0).copyWith(left: 20),
-                      child: const LoadingImage(
-                        image: AppIcons.searchField,
-                        color: AppColors.blue07,
-                        height: 24,
-                        width: 24,
-                      ),
-                    ),
-                    borderColor: AppColors.blue07,
-                    textStyle: AppTextStyles.blue14w500,
-                  ),
-                )),
+        preferredSize: const Size.fromHeight(130),
+        child: AppBar(
+          centerTitle: true,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          backgroundColor: AppColors.blueEC.withValues(alpha: 0.8),
+          title: const CustomText(
+            text: 'Inbox',
+            style: AppTextStyles.black22wbold,
           ),
+          bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(30),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0)
+                    .copyWith(bottom: 10),
+                child: CustomTextField(
+                  hintText: 'Search...',
+                  fieldColor: AppColors.blueEC.withValues(alpha: 0.05),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(12.0).copyWith(left: 20),
+                    child: const LoadingImage(
+                      image: AppIcons.searchField,
+                      color: AppColors.blue07,
+                      height: 24,
+                      width: 24,
+                    ),
+                  ),
+                  borderColor: AppColors.blue07,
+                  textStyle: AppTextStyles.blue14w500,
+                ),
+              )),
         ),
       ),
       body: Container(
@@ -64,7 +61,7 @@ class ChatScreen extends StatelessWidget {
               itemCount: 8,
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0)
-                  .copyWith(top: MediaQuery.of(context).size.height * 0.28),
+                  .copyWith(top: 20),
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 15.0),

@@ -12,16 +12,21 @@ class ChattingScreenAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  AppBar(
+    return AppBar(
       backgroundColor: AppColors.blueEC,
       leading: Padding(
         padding: const EdgeInsets.all(12.0).copyWith(left: 20),
-        child: const LoadingImage(
-          image: AppIcons.backArrowIcon,
-          width: 16,
-          height: 10,
-          color: AppColors.black,
-          boxfit: BoxFit.fitWidth,
+        child: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const LoadingImage(
+            image: AppIcons.backArrowIcon,
+            width: 16,
+            height: 10,
+            color: AppColors.black,
+            boxfit: BoxFit.fitWidth,
+          ),
         ),
       ),
       title: const ListTile(

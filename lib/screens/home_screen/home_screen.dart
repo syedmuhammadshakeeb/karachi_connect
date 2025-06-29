@@ -30,7 +30,9 @@ class HomeScreen extends StatelessWidget {
                   searchTap: () {
                     Navigator.pushNamed(context, RouteName.searchScreen);
                   },
-                  notificationTap: () {},
+                  notificationTap: () {
+                    
+                  },
                   chatTap: () {
                     context.read<TabbarBloc>().add(TabValueSelector(3));
                   },

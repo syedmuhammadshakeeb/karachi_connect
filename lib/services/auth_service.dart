@@ -40,7 +40,7 @@ class AuthService {
     }
   }
 
-  Future<UserModel>? loginApi({ String? email,  String? password}) async {
+  Future<UserModel>? loginApi({String? email, String? password}) async {
     Map<String, dynamic> data = {"email": email, "password": password};
     try {
       final response = await dio.post(AppUrls.loginEndpoint, data: data);

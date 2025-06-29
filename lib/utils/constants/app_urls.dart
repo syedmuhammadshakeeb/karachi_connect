@@ -5,4 +5,6 @@ class AppUrls {
       "auth/login";
   static const String createPostEndpoint =
       "ideas/create";
+  static const String investorEndpoint =
+      "users/investors";
 }
