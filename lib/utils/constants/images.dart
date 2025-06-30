@@ -5,4 +5,5 @@ class AppImages {
   static const String garden = 'assets/images/garden.png';
   static const String profileImage = 'assets/images/profile_image.png';
   static const String coverImage = 'assets/images/cover_image.jpg';
+  static const String emptyImage = 'aassets/images/empty_image.jpg';
 }
