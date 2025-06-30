@@ -17,12 +17,6 @@ class CreatePostAppbar extends StatelessWidget {
         style: AppTextStyles.black18w700,
       ),
       centerTitle: true,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.black),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
     );
   }
 }

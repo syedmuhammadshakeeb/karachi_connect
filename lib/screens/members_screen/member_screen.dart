@@ -4,6 +4,7 @@ import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
 import 'package:karachi_connect/bloc/investor_bloc.dart/investor_bloc.dart';
 import 'package:karachi_connect/bloc/investor_bloc.dart/investor_event.dart';
 import 'package:karachi_connect/bloc/investor_bloc.dart/investor_state.dart';
+import 'package:karachi_connect/component/loading_component/loading_component.dart';
 import 'package:karachi_connect/component/profile_component/follow_profile_card.dart';
 import 'package:karachi_connect/component/text/custom_text.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
@@ -31,29 +32,25 @@ class _MemberScreenState extends State<MemberScreen> {
   Widget build(BuildContext context) {
     print("role ${AuthBloc.userRole}");
     return Scaffold(
-        extendBodyBehindAppBar: true,
         backgroundColor: AppColors.transparent,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(150),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: AppBar(
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              forceMaterialTransparency: true,
-              backgroundColor: AppColors.blue07.withValues(alpha: 0.1),
-              title: CustomText(
-                text: AuthBloc.userRole == Enviroment.investor
-                    ? 'Investor'
-                    : 'Entrepreneur',
-                style: AppTextStyles.black22wbold,
-              ),
+          preferredSize: const Size.fromHeight(80),
+          child: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            backgroundColor: AppColors.blueEC,
+            title: const CustomText(
+              text: 'Members',
+              style: AppTextStyles.black22wbold,
             ),
           ),
         ),
         body: BlocBuilder<InvestorBloc, InvestorState>(
           builder: (context, state) {
             final investors = state.investorData;
+            if (state.isLoading == true) {
+              return const LoadingComponent();
+            }
             return Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -64,8 +61,8 @@ class _MemberScreenState extends State<MemberScreen> {
               child: ListView.builder(
                   itemCount: investors?.length ?? 0,
                   shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(horizontal: 20)
-                      .copyWith(top: MediaQuery.of(context).size.height * 0.15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   itemBuilder: (context, index) {
                     final investorData = investors?[index];
                     print("investers: ${investorData?.name}");

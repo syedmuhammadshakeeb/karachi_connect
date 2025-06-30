@@ -8,7 +8,8 @@ import 'package:karachi_connect/utils/constants/images.dart';
 import 'package:karachi_connect/utils/styles/text_styles.dart';
 
 class ChattingScreenAppbar extends StatelessWidget {
-  const ChattingScreenAppbar({super.key});
+  final String? name;
+  const ChattingScreenAppbar({super.key, this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +30,17 @@ class ChattingScreenAppbar extends StatelessWidget {
           ),
         ),
       ),
-      title: const ListTile(
-        leading: CircularProfileImage(
+      title:  ListTile(
+        leading:const CircularProfileImage(
           image: AppImages.profileImage,
           height: 34,
           width: 34,
         ),
         title: CustomText(
-          text: 'FitBot',
+          text: name??"",
           style: AppTextStyles.black15w700,
         ),
-        subtitle: Row(
+        subtitle: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             LoadingImage(

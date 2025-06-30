@@ -7,4 +7,6 @@ class AppUrls {
       "ideas/create";
   static const String investorEndpoint =
       "users/investors";
+  static const String sendChatEndpoint =
+      "chat/send";
 }

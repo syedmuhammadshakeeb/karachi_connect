@@ -15,7 +15,11 @@ class InvestorBloc extends Bloc<InvestorEvent, InvestorState> {
   // get investor List
   Future<void> getInvestorList(
       GetInvestorEvent event, Emitter<InvestorState> emit) async {
-    emit(state.copyWith(isLoading: true));
+    if (state.investorData != null) {
+      emit(state.copyWith(isLoading: false));
+    } else {
+      emit(state.copyWith(isLoading: true));
+    }
     try {
       final investorList = await investorService.getInvestorApi();
       emit(state.copyWith(investorData: investorList, isLoading: false));

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
 import 'package:karachi_connect/component/text/custom_text.dart';
+import 'package:karachi_connect/model/chat_model/chat_model.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
 import 'package:karachi_connect/utils/constants/images.dart';
 import 'package:karachi_connect/utils/styles/text_styles.dart';
 
 class ChattingScreenUi extends StatelessWidget {
-  final List<String>? senderId;
-  final List<String>? message;
-  const ChattingScreenUi({super.key, this.senderId, this.message});
+  final List<ChatModel>? message;
+  const ChattingScreenUi({
+    super.key,
+    this.message,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +26,15 @@ class ChattingScreenUi extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: message?.length ?? 0,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              // physics: const NeverScrollableScrollPhysics(),
               reverse: true,
-
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               // shrinkWrap: true, // Example item count
               itemBuilder: (context, index) {
-                bool? isChatid = senderId?[index] != AuthBloc.userId;
+                final reversedIndex = (message?.length ?? 0) - 1 - index;
+                bool? isChatid =
+                    message?[reversedIndex].senderId != AuthBloc.userId;
                 return Align(
                   alignment:
                       isChatid ? Alignment.centerLeft : Alignment.centerRight,
@@ -35,9 +42,9 @@ class ChattingScreenUi extends StatelessWidget {
                     constraints: BoxConstraints(
                       maxWidth: MediaQuery.of(context).size.width * 0.7,
                     ),
-                    padding: const EdgeInsets.all(10), 
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
                     decoration: BoxDecoration(
                       color: isChatid ? AppColors.greyb4 : AppColors.blue07,
                       borderRadius: isChatid
@@ -51,7 +58,7 @@ class ChattingScreenUi extends StatelessWidget {
                             ),
                     ),
                     child: CustomText(
-                      text:message?[index] ?? '',
+                      text: message?[reversedIndex].message ?? '',
                       style: isChatid
                           ? AppTextStyles.black14w500
                           : AppTextStyles.white14w500,

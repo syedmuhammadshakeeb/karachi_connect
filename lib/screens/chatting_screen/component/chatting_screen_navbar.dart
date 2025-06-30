@@ -7,8 +7,15 @@ import 'package:karachi_connect/utils/styles/text_styles.dart';
 
 class ChattingScreenNavbar extends StatelessWidget {
   final TextEditingController? messageController;
-  final Function()? onFileTap, onCameraTap, onAudioMessageTap;
-  const ChattingScreenNavbar({super.key, this.messageController, this.onAudioMessageTap, this.onCameraTap, this.onFileTap});
+  final Function()? onFileTap, onCameraTap, onAudioMessageTap, onSendTap;
+
+  const ChattingScreenNavbar(
+      {super.key,
+      this.messageController,
+      this.onSendTap,
+      this.onAudioMessageTap,
+      this.onCameraTap,
+      this.onFileTap});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +24,7 @@ class ChattingScreenNavbar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       width: MediaQuery.of(context).size.width,
       color: AppColors.blueEC.withValues(alpha: 0.8),
-      child:  Row(
+      child: Row(
         children: [
           InkWell(
             onTap: onFileTap,
@@ -32,7 +39,11 @@ class ChattingScreenNavbar extends StatelessWidget {
             child: CustomTextField(
               hintText: "Write your Message",
               controller: messageController,
+              
               borderColor: AppColors.greyb4,
+              safixIcon: InkWell(
+                onTap:onSendTap ,
+                child: Icon(Icons.send)),
               fieldColor: AppColors.blueEC,
               textStyle: AppTextStyles.grey14w500,
             ),
@@ -50,8 +61,7 @@ class ChattingScreenNavbar extends StatelessWidget {
             width: 10,
           ),
           InkWell(
-            onTap: onAudioMessageTap
-            ,
+            onTap: onAudioMessageTap,
             child: const LoadingImage(
               image: AppIcons.audioMessageIcon,
             ),

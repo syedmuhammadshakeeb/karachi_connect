@@ -54,7 +54,12 @@ class Routes {
             ),
             transition: PageTransitionType.leftToRight);
       case RouteName.chattingScreen:
-        return getPageRoute(const ChattingScreen(),
+        ChattingScreenArgument args =
+            settings.arguments as ChattingScreenArgument;
+        return getPageRoute( ChattingScreen(
+          name: args.name,
+          userId: args.userId,
+        ),
             transition: PageTransitionType.leftToRight);
       case RouteName.signUpScreen:
         SignupScreenArguemnt args = settings.arguments as SignupScreenArguemnt;

@@ -1,16 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:karachi_connect/bloc/investor_bloc.dart/investor_bloc.dart';
+import 'package:karachi_connect/bloc/investor_bloc.dart/investor_event.dart';
+import 'package:karachi_connect/bloc/investor_bloc.dart/investor_state.dart';
 import 'package:karachi_connect/component/chat_component/chat_profile_card.dart';
 import 'package:karachi_connect/component/custom_text_field/custom_text_field.dart';
+import 'package:karachi_connect/component/loading_component/loading_component.dart';
 import 'package:karachi_connect/component/loading_image/loading_image.dart';
 import 'package:karachi_connect/component/text/custom_text.dart';
 import 'package:karachi_connect/routes/route_name.dart';
+import 'package:karachi_connect/screens/chatting_screen/chatting_screen.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
 import 'package:karachi_connect/utils/constants/icons.dart';
 import 'package:karachi_connect/utils/constants/images.dart';
 import 'package:karachi_connect/utils/styles/text_styles.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      context.read<InvestorBloc>().add(GetInvestorEvent());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,26 +76,38 @@ class ChatScreen extends StatelessWidget {
             image: DecorationImage(
                 image: AssetImage(AppImages.bgImage), fit: BoxFit.cover),
           ),
-          child: ListView.builder(
-              itemCount: 8,
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0)
-                  .copyWith(top: 20),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 15.0),
-                  child: ChatProfileCard(
-                    lastMessage: 'Hi! how are you',
-                    profileName: 'S. M. Shakeeb',
-                    time: '03:09 am',
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteName.chattingScreen);
-                    },
-                    image: AppImages.person,
-                    onlineColor: AppColors.blue07,
-                  ),
-                );
-              })),
+          child: BlocBuilder<InvestorBloc, InvestorState>(
+            builder: (context, state) {
+              if (state.isLoading == true) {
+                return const LoadingComponent();
+              }
+              return ListView.builder(
+                  itemCount: state.investorData?.length ?? 0,
+                  shrinkWrap: true,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0)
+                          .copyWith(top: 20),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 15.0),
+                      child: ChatProfileCard(
+                        lastMessage: 'Hi! how are you',
+                        profileName: state.investorData?[index].name ?? '',
+                        time: '03:09 am',
+                        onTap: () {
+                          Navigator.pushNamed(context, RouteName.chattingScreen,
+                              arguments: ChattingScreenArgument(
+                                name: state.investorData?[index].name ?? '',
+                                userId: state.investorData?[index].id ?? '',
+                              ));
+                        },
+                        image: AppImages.person,
+                        onlineColor: AppColors.blue07,
+                      ),
+                    );
+                  });
+            },
+          )),
     );
   }
 }
