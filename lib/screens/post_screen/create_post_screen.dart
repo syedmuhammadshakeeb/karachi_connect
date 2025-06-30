@@ -11,6 +11,8 @@ import 'package:karachi_connect/screens/post_screen/component/create_post_ui.dar
 import 'package:karachi_connect/screens/post_screen/component/dialog/post_sucessful_dialog.dart';
 import 'package:karachi_connect/utils/constants/images.dart';
 
+import '../../model/post_model/post_model.dart';
+
 class CreatePostScreen extends StatefulWidget {
   const CreatePostScreen({super.key});
 
@@ -91,7 +93,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 summery: summaryController.text,
                                 description: descriptionController.text,
                               ));
-
+                          context.read<PostBloc>().add(AddPostLocallyEvent(
+                                  postData: PostModel(
+                                title: titleController.text,
+                                summary: summaryController.text,
+                                description: descriptionController.text,
+                              )));
                           titleController.clear();
                           summaryController.clear();
                           descriptionController.clear();

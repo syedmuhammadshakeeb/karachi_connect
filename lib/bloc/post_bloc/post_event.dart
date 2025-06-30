@@ -1,3 +1,5 @@
+import 'package:karachi_connect/model/post_model/post_model.dart';
+
 abstract class PostEvent {
   const PostEvent();
 }
@@ -18,4 +20,11 @@ class IsPostcreatedEvent extends PostEvent {
   final bool? isPostCreated;
 
   const IsPostcreatedEvent({this.isPostCreated});
+}
+class AddPostLocallyEvent extends PostEvent {
+ final PostModel? postData;
+
+  const AddPostLocallyEvent({ this.postData,}); 
+
+  
 }

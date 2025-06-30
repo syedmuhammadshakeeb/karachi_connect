@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_event.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_state.dart';
 import 'package:karachi_connect/services/auth_service.dart';
@@ -20,6 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<PasswordValidator>(passwordValidator);
     on<LoginEvent>(getLogin);
     on<IsAuthenticated>(isAuthenticated);
+    on<ProfileImagePicker>(pickImage);
   }
   AuthService authService = AuthService();
   static String? userRole;
@@ -161,6 +163,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       emit(state.copyWith(isauthticated: true));
       print("User authenticated ${userToken} ${userId} ${userRole}");
+    }
+  }
+
+//  profile image picker
+
+  Future<void> pickImage(
+      ProfileImagePicker event, Emitter<AuthState> emit) async {
+    ImagePicker imagePicker = ImagePicker();
+    XFile? image = await imagePicker.pickImage(source: ImageSource.gallery);
+    print("image path ${image}");
+    if (image != null) {
+      emit(state.copyWith(path: File(image.path)));
     }
   }
 }

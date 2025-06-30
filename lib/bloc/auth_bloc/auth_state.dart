@@ -5,6 +5,7 @@ import 'package:karachi_connect/model/user_model/user_model.dart';
 
 class AuthState {
   final bool isVisible;
+  final File? path;
   final bool isSucess;
   final bool isLaoding;
   final UserModel? userData;
@@ -16,6 +17,7 @@ class AuthState {
 
   AuthState(
       {this.isVisible = true,
+      this.path,
       this.isSucess = false,
       this.files,
       this.passwordError,
@@ -32,6 +34,7 @@ class AuthState {
           FilePickerResult? result,
           String? passwordError,
           UserModel? userData,
+          File? path,
           bool? isauthticated,
           bool? documentUpload}) =>
       AuthState(
@@ -43,5 +46,6 @@ class AuthState {
           passwordError: passwordError ?? this.passwordError,
           isauthticated: isauthticated ?? this.isauthticated,
           userData: userData ?? this.userData,
+          path: path ?? this.path,
           result: result ?? this.result);
 }

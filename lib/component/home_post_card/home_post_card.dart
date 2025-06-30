@@ -8,7 +8,8 @@ import 'package:karachi_connect/utils/constants/images.dart';
 import 'package:karachi_connect/utils/styles/text_styles.dart';
 
 class HomePostCard extends StatelessWidget {
-  const HomePostCard({super.key});
+  final String?  profileImage, name ,time, description,likeCount,commentCount;
+  const HomePostCard({super.key,this.profileImage,this.name,this.time,this.description,this.likeCount,this.commentCount});
 
   @override
   Widget build(BuildContext context) {
@@ -24,28 +25,28 @@ class HomePostCard extends StatelessWidget {
             border: Border.all(color: AppColors.greyD6)),
         child: Column(
           children: [
-            const ListTile(
-              leading: CircularProfileImage(
+             ListTile(
+              leading:  CircularProfileImage(
                 height: 50,
                 width: 50,
-                image: AppImages.person,
+                image: profileImage??'',
               ),
               title: CustomText(
-                text: 'S. M. Shakeeb',
+                text: name??'',
                 style: AppTextStyles.black18wbold,
               ),
               subtitle: CustomText(
-                text: '08:39 am',
+                text: time??'',
                 style: AppTextStyles.black12w400,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
+             Padding(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 25.0,
               ),
               child: CustomText(
                 text:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fringilla natoque id aenean.',
+                    description??'',
                 style: AppTextStyles.black14w500,
               ),
             ),
@@ -60,38 +61,38 @@ class HomePostCard extends StatelessWidget {
                   image: const DecorationImage(
                       image: AssetImage(AppImages.garden), fit: BoxFit.cover)),
             ),
-         const   Padding(
+            Padding(
               padding:
-                   EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                   const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
               child:  Row(
                 children: [
                   Row(
                     children: [
-                      LoadingImage(
+                      const LoadingImage(
                         image: AppIcons.likeIcon,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       CustomText(
-                        text: '1,223',
+                        text: likeCount??'',
                         style: AppTextStyles.black14w600,
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Row(
                     children: [
-                      LoadingImage(
+                      const LoadingImage(
                         image: AppIcons.commentIcon,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       CustomText(
-                        text: '1,223',
+                        text:commentCount ??'',
                         style: AppTextStyles.black14w600,
                       )
                     ],

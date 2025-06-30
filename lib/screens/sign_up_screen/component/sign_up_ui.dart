@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:karachi_connect/component/app_name/app_name.dart';
 import 'package:karachi_connect/component/custom_button/custom_button.dart';
@@ -17,7 +19,9 @@ class SignUpUi extends StatelessWidget {
   final GlobalKey<FormFieldState<String>>? passwordKey;
   final FormFieldValidator<String>? phoneValidator;
   final bool? obsecure;
+  final Function()? onImageTap;
   final String? passwordError;
+  final File? image;
   final Function()? obsecureTap;
   final Function()? onSignUpTap,
       onForgetpasswordTap,
@@ -33,6 +37,7 @@ class SignUpUi extends StatelessWidget {
       this.passwordError,
       this.phoneValidator,
       this.passwordValidator,
+      this.onImageTap,
       this.phoneNoControllers,
       this.passwordControllers,
       this.nameValidator,
@@ -41,6 +46,7 @@ class SignUpUi extends StatelessWidget {
       this.loginNavigationTap,
       this.onSignUpTap,
       this.onForgetpasswordTap,
+      this.image,
       this.onGoogleTap});
 
   @override
@@ -55,16 +61,35 @@ class SignUpUi extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: ListView(
             padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.22),
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.12),
             children: [
               const AppName(),
               const SizedBox(
-                height: 40,
+                height: 20,
+              ),
+              InkWell(
+                onTap: onImageTap,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.darkblue,
+                  ),
+                  child: Image(
+                    image: image != null
+                        ? FileImage(image!)
+                        : const AssetImage(AppImages.empty),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               CustomTextField(
                 controller: nameControllers,
                 prefixIcon: const Icon(Icons.person),
-                validate:nameValidator ,
+                validate: nameValidator,
                 hintText: 'Enter Name',
               ),
               const SizedBox(
@@ -83,7 +108,6 @@ class SignUpUi extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 controller: phoneNoControllers ?? TextEditingController(),
                 validate: phoneValidator,
-                
                 prefixIcon: const Icon(Icons.phone_outlined),
                 hintText: 'Enter Phone no.',
               ),
@@ -92,14 +116,12 @@ class SignUpUi extends StatelessWidget {
               ),
               CustomTextField(
                 errorText: passwordError,
-                key:passwordKey ,
+                key: passwordKey,
                 controller: passwordControllers ?? TextEditingController(),
                 obscureText: obsecure ?? false,
                 prefixIcon: const Icon(Icons.lock),
                 validate: passwordValidator,
-                
                 safixIcon: IconButton(
-
                   icon: obsecure == true
                       ? const Icon(Icons.visibility_off)
                       : const Icon(Icons.visibility),
@@ -111,7 +133,6 @@ class SignUpUi extends StatelessWidget {
                 height: 20,
               ),
               CustomButton(
-              
                 onTap: onSignUpTap,
                 color: AppColors.darkblue,
                 width: MediaQuery.of(context).size.width,

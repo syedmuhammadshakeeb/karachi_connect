@@ -47,6 +47,10 @@ class _SignupScreenState extends State<SignupScreen> {
                 builder: (context, state) {
                   return Center(
                       child: SignUpUi(
+                        onImageTap:(){
+                          context.read<AuthBloc>().add(ProfileImagePicker());
+                        } ,
+                        image:state.path ,
                           passwordKey: _passFieldKey,
                           passwordError: state.passwordError,
                           emailValidator: (value) {
