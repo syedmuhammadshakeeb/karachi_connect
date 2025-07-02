@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
 import 'package:karachi_connect/component/custom_sliver_scroll/component/user_bio_component.dart';
 import 'package:karachi_connect/utils/constants/icons.dart';
+import 'package:karachi_connect/utils/enviremnt/enviroment.dart';
 
 class ListUserBioWidget extends StatelessWidget {
   const ListUserBioWidget({super.key});
@@ -40,7 +42,9 @@ List<Map<String, dynamic>> userBioIconAndText() {
   return [
     {
       'icon': AppIcons.professionIcon,
-      'text': 'Entrepreneur',
+      'text': AuthBloc.userRole == Enviroment.investor
+          ? 'Investor'
+          : 'Entrepreneur',
     },
     {
       'icon': AppIcons.locationIcon,

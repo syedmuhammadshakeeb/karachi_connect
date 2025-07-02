@@ -22,11 +22,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginEvent>(getLogin);
     on<IsAuthenticated>(isAuthenticated);
     on<ProfileImagePicker>(pickImage);
+    on<GetUserDataEvent>(getUserData);
   }
   AuthService authService = AuthService();
   static String? userRole;
   static String? userId;
   static String? userToken;
+  static String? userName;
+  static String? userEmail;
+  static String? userProfile;
 
   // Signup Api
 
@@ -34,6 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(isLaoding: true));
     try {
       await authService.signUpApi(
+        profileImage: event.profileImage,
         role: event.role ?? 'investor',
         email: event.email?.text,
         password: event.password?.text,
@@ -132,9 +137,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           state.userData?.role ?? '', Enviroment.getRole);
       SharedPreferenceService.setString(
           state.userData?.id ?? '', Enviroment.getid);
+      SharedPreferenceService.setString(
+          state.userData?.name ?? '', Enviroment.getName);
+      SharedPreferenceService.setString(
+          state.userData?.email ?? '', Enviroment.getEmail);
+      SharedPreferenceService.setString(
+          state.userData?.profileImage ?? '', Enviroment.getProfile);
       userToken = user?.token;
       userRole = user?.role;
       userId = user?.id;
+      userName = user?.name;
+      userEmail = user?.email;
+      userProfile = user?.profileImage;
     } catch (e) {
       log("getLogin Error: $e");
       emit(state.copyWith(
@@ -151,12 +165,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await SharedPreferenceService.getString(Enviroment.getToken);
     String? id = await SharedPreferenceService.getString(Enviroment.getid);
     String? role = await SharedPreferenceService.getString(Enviroment.getRole);
+    String? name = await SharedPreferenceService.getString(Enviroment.getName);
+    String? email =
+        await SharedPreferenceService.getString(Enviroment.getEmail);
+    String? profile =
+        await SharedPreferenceService.getString(Enviroment.getProfile);
 
     if (token == null || token.isEmpty) {
       emit(state.copyWith(isauthticated: false));
       print("User not authenticated");
     } else {
       userToken = token;
+      userEmail = email;
+      userName = name;
+      userProfile = profile;
 
       userId = id;
       userRole = role;
@@ -174,7 +196,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     XFile? image = await imagePicker.pickImage(source: ImageSource.gallery);
     print("image path ${image}");
     if (image != null) {
-      emit(state.copyWith(path: File(image.path)));
+      emit(state.copyWith(imagepath: File(image.path)));
+    }
+  }
+
+  // get user Data
+  Future getUserData(GetUserDataEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(isLaoding: true));
+    try {
+      final userData = await authService.getuserApi(id: event.id);
+      emit(state.copyWith(userData: userData, isLaoding: false));
+    } catch (e) {
+      log("getLogin Error: $e");
+      emit(state.copyWith(
+        isLaoding: false,
+      ));
+      ErrorHandler.getErrorMsgFromException(e, isShowToast: true);
     }
   }
 }

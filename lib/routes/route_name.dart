@@ -9,4 +9,7 @@ class RouteName {
   static const String accountSucessfullScreen = 'accountSucessfullScreen_screen'; 
   static const String chattingScreen = 'chatting_screen'; 
   static const String searchScreen = 'search_screen'; 
+  static const String detailPostScreen = 'detail_post_screen'; 
+  static const String profileScreen = 'profile_screen'; 
+
 }

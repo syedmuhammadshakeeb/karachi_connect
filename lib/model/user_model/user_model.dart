@@ -11,6 +11,7 @@ class UserModel {
   int? numberOfProjectsInvestedIn;
   int? v;
   String? token;
+  String? profileImage;
 
   UserModel(
       {this.id,
@@ -24,6 +25,7 @@ class UserModel {
       this.ntn,
       this.numberOfProjectsInvestedIn,
       this.v,
+      this.profileImage,
       this.token});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -39,6 +41,8 @@ class UserModel {
         numberOfProjectsInvestedIn: json["numberOfProjectsInvestedIn"],
         v: json["__v"],
         token: json["token"],
+        profileImage: json["profileImage"],
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -54,6 +58,7 @@ class UserModel {
         "numberOfProjectsInvestedIn": numberOfProjectsInvestedIn,
         "__v": v,
         "token": token,
+        "profileImage": profileImage
       };
       static List<UserModel> fromJsonList(List<dynamic> jsonList) {
         return jsonList.map((json) => UserModel.fromJson(json)).toList();

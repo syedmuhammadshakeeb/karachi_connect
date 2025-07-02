@@ -6,27 +6,39 @@ import 'package:karachi_connect/utils/constants/app_urls.dart';
 class ChatService {
   Dio dio = Api().dio;
 
+  Future<ChatModel>? sendChatMessages(ChatModel chatModel) async {
+    Map<String, dynamic> data = {
+      "senderId": chatModel.senderId,
+      "receiverId": chatModel.receiverId,
+      "text": chatModel.text,
+    };
+    try {
+      final response = await dio.post(AppUrls.sendChatEndpoint, data: data);
+      if (response.statusCode == 201) {
+        final chatResponse = ChatModel.fromJson(response.data);
+        return chatResponse;
+      }
+    } catch (e) {
+      rethrow;
+    }
+    return Object() as ChatModel;
+  }
 
-//   Future<ChatModel>? getChatMessages(String userId) async {
-
-//     Map<String, dynamic> data ={
-//   "senderId": "user1_id",
-//   "receiverId": "user2_id",
-//   "message": "Hello!"
-// }
-// ;
-//     try {
-//       final response = await dio.post(AppUrls.sendChatEndpoint,data: data);
-//       if (conditions.response.statusCode == 200) {
-//         return ChatModel.fromJson(response.data);
-//       } else {
-//         throw Exception('Failed to send chat message');
-        
-//       }
-//       return response;
-//     } catch (e) {
-//       rethrow;
-//     }
-//   }
-
+  Future<List<ChatModel>>? getChatMessages(
+      String userId, String receiverId) async {
+    print("userId $userId receiverId $receiverId");
+    try {
+      final response = await dio.get(
+        'chat/messages?user1=$userId&user2=$receiverId',
+      );
+      if (response.statusCode == 200) {
+        print("'${AppUrls.getChatEndpoint}user1=$userId&user2=$receiverId'");
+        final chatResponse = ChatModel.fromJsonList(response.data);
+        return chatResponse;
+      }
+    } catch (e) {
+      rethrow;
+    }
+    return [] as List<ChatModel>;
+  }
 }

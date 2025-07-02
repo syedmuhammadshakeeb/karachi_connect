@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_event.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_state.dart';
+import 'package:karachi_connect/component/loading_component/loading_component.dart';
 
 import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/screens/document_upload_screen/document_upload_screen.dart';
@@ -38,6 +39,7 @@ class _SignupScreenState extends State<SignupScreen> {
             extendBodyBehindAppBar: true,
             body: BlocListener<AuthBloc, AuthState>(
               listener: (context, state) {
+               
                 if (state.isSucess == true) {
                   Navigator.pushReplacementNamed(
                       context, RouteName.loginScreen);
@@ -45,13 +47,20 @@ class _SignupScreenState extends State<SignupScreen> {
               },
               child: BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
+                   if (state.isLaoding == true) {
+               return   const LoadingComponent();
+                }
                   return Center(
                       child: SignUpUi(
-                        onImageTap:(){
-                          context.read<AuthBloc>().add(ProfileImagePicker());
-                        } ,
-                        image:state.path ,
+                          onImageTap: () {
+                            context.read<AuthBloc>().add(ProfileImagePicker());
+                          },
+                          image: state.imagepath,
                           passwordKey: _passFieldKey,
+                          emailControllers: emailControllers,
+                          nameControllers: nameControllers,
+                          passwordControllers: passwordControllers,
+                          phoneNoControllers: phoneNoControllers,
                           passwordError: state.passwordError,
                           emailValidator: (value) {
                             if (value?.isEmpty ?? true) {
@@ -79,7 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter phone number';
                             }
-                            if ((value?.length) != 12) {
+                            if ((value?.length) != 11) {
                               return 'Please enter valid phone number';
                             } else {
                               return null;
@@ -90,7 +99,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             context.read<AuthBloc>().add(IsVisiblePassword());
                           },
                           loginNavigationTap: () {
-                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(
+                                context, RouteName.loginScreen);
                           },
                           onGoogleTap: () {},
                           onSignUpTap: () {
@@ -112,6 +122,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       passwordController: passwordControllers,
                                       phoneController: phoneNoControllers,
                                       role: widget.signUpAs,
+                                      profileImage: state.imagepath,
                                     ),
                                   );
                                 }
@@ -124,6 +135,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       name: nameControllers,
                                       phoneNo: phoneNoControllers,
                                       role: widget.signUpAs,
+                                      profileImage: state.imagepath,
                                     ));
                               }
                             }

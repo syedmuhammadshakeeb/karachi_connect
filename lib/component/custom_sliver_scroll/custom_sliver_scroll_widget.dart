@@ -19,6 +19,7 @@ class CustomSliverScrollWidget extends StatefulWidget {
   final List<Widget>? screens;
   final Widget? child;
   final bool isFirstScreenInTab;
+  final bool isFollow;
   final String? profileImage,
       profileText,
       userName,
@@ -45,6 +46,7 @@ class CustomSliverScrollWidget extends StatefulWidget {
       this.dob,
       this.profession,
       this.joinedDate,
+      this.isFollow = false,
       this.link,
       this.followrs,
       this.following,
@@ -214,23 +216,26 @@ class _CustomSliverScrollWidgetState extends State<CustomSliverScrollWidget> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          height: 36,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: AppColors.blue07
-                                                .withValues(alpha: 0.3),
-                                          ),
-                                          child: const Center(
-                                            child: CustomText(
-                                              text: 'Follow',
-                                              style: AppTextStyles.black16w500,
+                                        if (widget.isFollow == true) ...[
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            height: 36,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: AppColors.blue07
+                                                  .withValues(alpha: 0.3),
                                             ),
-                                          ),
-                                        )
+                                            child: const Center(
+                                              child: CustomText(
+                                                text: 'Follow',
+                                                style:
+                                                    AppTextStyles.black16w500,
+                                              ),
+                                            ),
+                                          )
+                                        ]
                                       ],
                                     ),
                                     const SizedBox(

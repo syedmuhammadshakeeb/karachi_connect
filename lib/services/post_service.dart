@@ -30,4 +30,19 @@ class PostService {
     }
     return Object() as PostModel; 
   }
+
+
+Future<List<PostModel>>? getPostApi()async{
+try {
+  final response = await dio.get(AppUrls.getPostEndpoint);
+  if (response.statusCode == 200) {
+    final postResponse = PostModel.fromJsonList(response.data);
+    return postResponse;
+  }
+} catch (e) {
+  rethrow;
+}
+return [] as List<PostModel>;
+}
+
 }

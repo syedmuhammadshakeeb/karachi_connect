@@ -5,8 +5,14 @@ class AppUrls {
       "auth/login";
   static const String createPostEndpoint =
       "ideas/create";
-  static const String investorEndpoint =
-      "users/investors";
+  static const String memberEndpoint =
+      "users/all";
   static const String sendChatEndpoint =
-      "chat/send";
+      "chat/save";
+  static const String getChatEndpoint =
+      "chat/messages";
+  static const String getPostEndpoint =
+      "ideas/summaries";
+  static const String getProfiletEndpoint =
+      "users/";
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 
 abstract class AuthEvent {
@@ -7,6 +9,7 @@ abstract class AuthEvent {
 class SignupEvent extends AuthEvent {
   final TextEditingController? email;
   final TextEditingController? password;
+  final File? profileImage;
   final TextEditingController? phoneNo;
   final TextEditingController? name;
   final TextEditingController? ntn;
@@ -15,6 +18,7 @@ class SignupEvent extends AuthEvent {
       {this.email,
       this.password,
       this.phoneNo,
+      this.profileImage,
       this.name,
       this.ntn,
       this.role});
@@ -34,6 +38,10 @@ class UploadDocument extends AuthEvent {}
 class ClearDocument extends AuthEvent {}
 class IsAuthenticated extends AuthEvent {}
 class ProfileImagePicker extends AuthEvent {}
+class GetUserDataEvent extends AuthEvent {
+  final String? id;
+  GetUserDataEvent({this.id});
+}
 
 class SetDocumentError extends AuthEvent {
   final bool isError;

@@ -93,12 +93,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 summery: summaryController.text,
                                 description: descriptionController.text,
                               ));
-                          context.read<PostBloc>().add(AddPostLocallyEvent(
-                                  postData: PostModel(
-                                title: titleController.text,
-                                summary: summaryController.text,
-                                description: descriptionController.text,
-                              )));
+                          context.read<PostBloc>().add(GetPostData());
                           titleController.clear();
                           summaryController.clear();
                           descriptionController.clear();

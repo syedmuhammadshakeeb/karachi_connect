@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
-import 'package:karachi_connect/bloc/investor_bloc.dart/investor_bloc.dart';
-import 'package:karachi_connect/bloc/investor_bloc.dart/investor_event.dart';
-import 'package:karachi_connect/bloc/investor_bloc.dart/investor_state.dart';
+import 'package:karachi_connect/bloc/auth_bloc/auth_event.dart';
+import 'package:karachi_connect/bloc/members_bloc.dart/memberr_bloc.dart';
+import 'package:karachi_connect/bloc/members_bloc.dart/members_event.dart';
+import 'package:karachi_connect/bloc/members_bloc.dart/members_state.dart';
 import 'package:karachi_connect/component/loading_component/loading_component.dart';
 import 'package:karachi_connect/component/profile_component/follow_profile_card.dart';
 import 'package:karachi_connect/component/text/custom_text.dart';
+import 'package:karachi_connect/routes/route_name.dart';
+import 'package:karachi_connect/screens/profile_screen/profile_screen.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
 import 'package:karachi_connect/utils/constants/images.dart';
-import 'package:karachi_connect/utils/enviremnt/enviroment.dart';
 import 'package:karachi_connect/utils/styles/text_styles.dart';
 
 class MemberScreen extends StatefulWidget {
@@ -24,7 +26,8 @@ class _MemberScreenState extends State<MemberScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      context.read<InvestorBloc>().add(GetInvestorEvent());
+      context.read<MembersBloc>().add(GetInvestorEvent());
+    
     });
   }
 
@@ -45,9 +48,9 @@ class _MemberScreenState extends State<MemberScreen> {
             ),
           ),
         ),
-        body: BlocBuilder<InvestorBloc, InvestorState>(
+        body: BlocBuilder<MembersBloc, MembersState>(
           builder: (context, state) {
-            final investors = state.investorData;
+            final investors = state.membersData;
             if (state.isLoading == true) {
               return const LoadingComponent();
             }
@@ -72,7 +75,11 @@ class _MemberScreenState extends State<MemberScreen> {
                         followers: investorData?.role,
                         image: AppImages.person,
                         onFollowTap: () {},
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, RouteName.profileScreen,
+                              arguments: ProfileScreenArguments(
+                                  isFollow: true, id: investorData?.id));
+                        },
                         profileName: investorData?.name ?? '',
                       ),
                     );

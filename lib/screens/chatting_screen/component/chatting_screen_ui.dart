@@ -58,7 +58,7 @@ class ChattingScreenUi extends StatelessWidget {
                             ),
                     ),
                     child: CustomText(
-                      text: message?[reversedIndex].message ?? '',
+                      text: message?[reversedIndex].text ?? '',
                       style: isChatid
                           ? AppTextStyles.black14w500
                           : AppTextStyles.white14w500,

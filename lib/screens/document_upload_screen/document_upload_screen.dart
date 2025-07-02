@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
@@ -16,6 +18,7 @@ class DocumentUploadScreen extends StatefulWidget {
   final TextEditingController? nameController;
   final TextEditingController? phoneController;
   final TextEditingController? emailController;
+  final File? profileImage;
   final TextEditingController? passwordController;
   final String? role;
   const DocumentUploadScreen(
@@ -23,6 +26,7 @@ class DocumentUploadScreen extends StatefulWidget {
       this.emailController,
       this.nameController,
       this.passwordController,
+      this.profileImage,
       this.phoneController,
       this.role});
 
@@ -36,6 +40,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Form(
       key: _formKey,
       child: BlocProvider(
@@ -65,13 +70,13 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                   if (_formKey.currentState?.validate() == true) {
                     try {
                       bloc.add(SignupEvent(
-                        email: widget.emailController,
-                        password: widget.passwordController,
-                        name: widget.nameController,
-                        phoneNo: widget.phoneController,
-                        ntn: ntnController,
-                        role: widget.role,
-                      ));
+                          email: widget.emailController,
+                          password: widget.passwordController,
+                          name: widget.nameController,
+                          phoneNo: widget.phoneController,
+                          ntn: ntnController,
+                          role: widget.role,
+                          profileImage: state.imagepath));
                     } catch (e) {
                       showSnackBar(
                         context,
@@ -91,11 +96,11 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
               if (state.isSucess == true &&
                   (state.result != null &&
                       state.result?.files.isNotEmpty == true)) {
-                widget.emailController?.clear();
-                widget.passwordController?.clear();
-                widget.nameController?.clear();
-                widget.phoneController?.clear();
-                ntnController.clear();
+                // widget.emailController?.clear();
+                // widget.passwordController?.clear();
+                // widget.nameController?.clear();
+                // widget.phoneController?.clear();
+                // ntnController.clear();
                 Navigator.pushReplacementNamed(
                     context, RouteName.accountSucessfullScreen);
               } else {
@@ -147,9 +152,11 @@ class DocumentUploadScreenArgument {
   final TextEditingController? phoneController;
   final TextEditingController? emailController;
   final TextEditingController? passwordController;
+  final File? profileImage;
   final String? role;
   DocumentUploadScreenArgument(
       {this.emailController,
+      this.profileImage,
       this.nameController,
       this.passwordController,
       this.phoneController,

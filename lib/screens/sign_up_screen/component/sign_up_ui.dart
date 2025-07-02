@@ -72,15 +72,17 @@ class SignUpUi extends StatelessWidget {
                 child: Container(
                   height: 100,
                   width: 100,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.darkblue,
-                  ),
-                  child: Image(
-                    image: image != null
-                        ? FileImage(image!)
-                        : const AssetImage(AppImages.empty),
-                  ),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.darkblue,
+                      image: DecorationImage(
+                        fit: BoxFit.contain,
+                        image: image != null
+                            ? FileImage(
+                                image!,
+                              )
+                            : const AssetImage(AppImages.empty),
+                      )),
                 ),
               ),
               const SizedBox(

@@ -36,9 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               child: BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
-                  if (state.isLaoding == true) {
-                    return const LoadingComponent();
-                  }
                   return LoginUi(
                     emailControllers: emailControllers,
                     obsecure: state.isVisible,

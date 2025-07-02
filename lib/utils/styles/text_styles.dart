@@ -9,6 +9,12 @@ class AppTextStyles {
     fontFamily: 'SFPRODISPLAY',
     color: AppColors.white,
   );
+  static const TextStyle white25w600 = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'SFPRODISPLAY',
+    color: AppColors.white,
+  );
   static const TextStyle black18w500 = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w500,
