@@ -28,21 +28,43 @@ class PostService {
     } catch (e) {
       rethrow;
     }
-    return Object() as PostModel; 
+    return Object() as PostModel;
   }
 
-
-Future<List<PostModel>>? getPostApi()async{
-try {
-  final response = await dio.get(AppUrls.getPostEndpoint);
-  if (response.statusCode == 200) {
-    final postResponse = PostModel.fromJsonList(response.data);
-    return postResponse;
+  Future<List<PostModel>?>? getPostApi() async {
+    try {
+      final response = await dio.get(AppUrls.getPostEndpoint);
+      if (response.statusCode == 200) {
+        final postResponse = PostModel.fromJsonList(response.data);
+        return postResponse;
+      }
+    } catch (e) {
+      rethrow;
+    }
+    return [] as List<PostModel>;
   }
-} catch (e) {
-  rethrow;
-}
-return [] as List<PostModel>;
-}
 
+  Future postCommentApi(
+      {String? postId, String? comment, String? senderId}) async {
+    Map<String, dynamic> data = {
+      "ideaId": postId,
+      "senderId": senderId,
+      "comment": comment
+    };
+    try {
+      await dio.post(AppUrls.postCommentEndpoint, data: data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future getCommentApi({String? postId}) async {
+    try {
+      await dio.post(
+        '${AppUrls.getCommentEndpoint}:$postId',
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

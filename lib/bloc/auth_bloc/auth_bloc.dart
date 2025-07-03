@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_event.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_state.dart';
+import 'package:karachi_connect/bloc/post_bloc/post_event.dart';
 import 'package:karachi_connect/services/auth_service.dart';
 import 'package:karachi_connect/services/shared_preference/shared_preference.dart';
 import 'package:karachi_connect/utils/enviremnt/enviroment.dart';
@@ -23,6 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<IsAuthenticated>(isAuthenticated);
     on<ProfileImagePicker>(pickImage);
     on<GetUserDataEvent>(getUserData);
+    
   }
   AuthService authService = AuthService();
   static String? userRole;

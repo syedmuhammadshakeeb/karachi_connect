@@ -30,7 +30,7 @@ class AuthService {
     //   "numberOfProjectsInvestedIn": numberOfProjectsInvestedIn ?? 0,
     //   "profileImage": profileImage
     // };
-    // log("data is ${profileImage?.path}");
+    log("data is ${profileImage?.path}");
     FormData data = FormData.fromMap({
       "name": name ?? "",
       "email": email ?? "",

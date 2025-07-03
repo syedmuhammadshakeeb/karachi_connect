@@ -8,13 +8,17 @@ import 'package:karachi_connect/bloc/tab_bar_bloc/tabbar_bloc.dart';
 import 'package:karachi_connect/bloc/tab_bar_bloc/tabbar_events.dart';
 import 'package:karachi_connect/bloc/tab_bar_bloc/tabbar_states.dart';
 import 'package:karachi_connect/component/app_bar/app_bar.dart';
+import 'package:karachi_connect/component/custom_text_field/custom_text_field.dart';
 import 'package:karachi_connect/component/home_post_card/home_post_card.dart';
 import 'package:karachi_connect/component/home_post_header/home_post_header.dart';
 import 'package:karachi_connect/component/loading_component/loading_component.dart';
+import 'package:karachi_connect/component/loading_image/loading_image.dart';
+import 'package:karachi_connect/component/text/custom_text.dart';
 import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/screens/detail_post_screen/detail_post_screen.dart';
 import 'package:karachi_connect/utils/constants/colors.dart';
 import 'package:karachi_connect/utils/constants/images.dart';
+import 'package:karachi_connect/utils/styles/text_styles.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,6 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
       context.read<PostBloc>().add(GetPostData(id: AuthBloc.userId));
     });
   }
+
+  TextEditingController commentcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +99,101 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: HomePostCard(
+                          onCommentTap: () async {
+                            await showModalBottomSheet(
+                                showDragHandle: true,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                backgroundColor: AppColors.blueEC,
+                                context: context,
+                                builder: (context) {
+                                  return ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(20)),
+                                    child: Scaffold(
+                                      backgroundColor: AppColors.white,
+                                      body: ListView.builder(
+                                          itemCount: post?.comments?.length,
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              children: [
+                                                ListTile(
+                                                  leading: LoadingImage(
+                                                    image: AppImages.person,
+                                                  ),
+                                                  title: CustomText(
+                                                    text:
+                                                        post?.createdBy?.name ??
+                                                            '',
+                                                    style: AppTextStyles
+                                                        .black18w700,
+                                                  ),
+                                                  subtitle: CustomText(
+                                                    text: post?.comments?[index]
+                                                            .content ??
+                                                        '',
+                                                    style: AppTextStyles
+                                                        .black16w400,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 20.0),
+                                                  child: Divider(
+                                                    color: AppColors.greyb4,
+                                                  ),
+                                                )
+                                              ],
+                                            );
+                                          }),
+                                      bottomNavigationBar: Container(
+                                        height: 80,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                            color: AppColors.blueEC,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        child: Row(
+                                          children: [
+                                            Flexible(
+                                              child: CustomTextField(
+                                                hintText: "Write your Comment",
+                                                controller: commentcontroller,
+                                                borderColor: AppColors.greyb4,
+                                                safixIcon: InkWell(
+                                                    onTap: () {
+                                                      context
+                                                          .read<PostBloc>()
+                                                          .add(PostCommentEvent(
+                                                              postid:
+                                                                  post?.id ??
+                                                                      '',
+                                                              comment:
+                                                                  commentcontroller
+                                                                      .text,
+                                                              senderId: AuthBloc
+                                                                      .userId ??
+                                                                  ''));
+                                                    },
+                                                    child:
+                                                        const Icon(Icons.send)),
+                                                fieldColor: AppColors.blueEC,
+                                                textStyle:
+                                                    AppTextStyles.grey14w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                });
+                          },
                           onLikeTap: () {
                             Navigator.pushNamed(
                                 context, RouteName.detailPostScreen,

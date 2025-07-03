@@ -12,7 +12,7 @@ class Api {
   Api() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: "https://new-backend-production-5c68.up.railway.app/api/",
+        baseUrl: "https://fyp-backend-production-74ef.up.railway.app/api/",
         headers: {
           Headers.contentTypeHeader: 'application/json',
           Headers.acceptHeader: 'application/json',

@@ -24,3 +24,9 @@ class GetPostData extends PostEvent {
   String? id;
   GetPostData({this.id});
 }
+class PostCommentEvent extends PostEvent {
+  String? postid;
+  String? senderId;
+  String? comment;
+  PostCommentEvent({this.comment, this.postid, this.senderId});
+}

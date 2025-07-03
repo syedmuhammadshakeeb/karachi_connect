@@ -17,7 +17,7 @@ class HomePostCard extends StatelessWidget {
       likeCount,
       commentCount,
       image;
-  final Function()? onLikeTap;
+  final Function()? onLikeTap, onCommentTap;
   const HomePostCard(
       {super.key,
       this.profileImage,
@@ -27,6 +27,7 @@ class HomePostCard extends StatelessWidget {
       this.likeCount,
       this.commentCount,
       this.onLikeTap,
+      this.onCommentTap,
       this.image});
 
   @override
@@ -107,34 +108,37 @@ class HomePostCard extends StatelessWidget {
                     width: 15,
                   ),
                   Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          children: [
-                            const LoadingImage(
-                              image: AppIcons.commentIcon,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            CustomText(
-                              text: commentCount ?? '',
-                              style: AppTextStyles.black14w600,
+                    child: InkWell(
+                      onTap: onCommentTap,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              const LoadingImage(
+                                image: AppIcons.commentIcon,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              CustomText(
+                                text: commentCount ?? '',
+                                style: AppTextStyles.black14w600,
+                              )
+                            ],
+                          ),
+                          if (AuthBloc.userRole == Enviroment.investor) ...[
+                            InkWell(
+                              onTap: onLikeTap,
+                              child: const CustomText(
+                                text: "See Full Post",
+                                style: AppTextStyles.blue14w500,
+                              ),
                             )
-                          ],
-                        ),
-                        if (AuthBloc.userRole == Enviroment.investor) ...[
-                          InkWell(
-                            onTap: onLikeTap,
-                            child: const CustomText(
-                              text: "See Full Post",
-                              style: AppTextStyles.blue14w500,
-                            ),
-                          )
-                        ]
-                      ],
+                          ]
+                        ],
+                      ),
                     ),
                   )
                 ],

@@ -56,7 +56,7 @@ class ProfileBody extends StatelessWidget {
                               commentCount: '1,234',
                               description: data?.description ?? '',
                               profileImage:
-                                  data?.profileImage ?? AppImages.person,
+                                  data?.createdBy?.profileImage ?? AppImages.person,
                               likeCount: '1,34',
                               name: data?.title ?? '',
                               time: '3.09 am',

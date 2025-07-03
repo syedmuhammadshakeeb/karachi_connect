@@ -4,7 +4,6 @@ import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_event.dart';
 import 'package:karachi_connect/bloc/auth_bloc/auth_state.dart';
 import 'package:karachi_connect/component/loading_component/loading_component.dart';
-
 import 'package:karachi_connect/routes/route_name.dart';
 import 'package:karachi_connect/screens/document_upload_screen/document_upload_screen.dart';
 import 'package:karachi_connect/screens/sign_up_screen/component/sign_up_ui.dart';

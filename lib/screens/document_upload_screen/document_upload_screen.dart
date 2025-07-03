@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -40,7 +41,6 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Form(
       key: _formKey,
       child: BlocProvider(
@@ -76,7 +76,8 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                           phoneNo: widget.phoneController,
                           ntn: ntnController,
                           role: widget.role,
-                          profileImage: state.imagepath));
+                          profileImage: widget.profileImage));
+                      log("data is ${state.imagepath}");
                     } catch (e) {
                       showSnackBar(
                         context,

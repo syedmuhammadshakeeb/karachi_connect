@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:karachi_connect/bloc/auth_bloc/auth_bloc.dart';
 import 'package:karachi_connect/bloc/post_bloc/post_event.dart';
 import 'package:karachi_connect/bloc/post_bloc/post_state.dart';
 import 'package:karachi_connect/model/post_model/post_model.dart';
@@ -13,6 +12,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<CreatePostEvent>(createPost);
     on<IsPostcreatedEvent>(isPostCreated);
     on<GetPostData>(getPostData);
+    on<PostCommentEvent>(sendComment);
   }
 
   PostService postService = PostService();
@@ -66,8 +66,24 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
         emit(state.copyWith(userOwnPostList: ownPostList, isLoading: false));
       }
+      print(postList?.first.id);
     } catch (e) {
       log("Get Post Error: $e");
+
+      emit(state.copyWith(isLoading: false));
+      ErrorHandler.getErrorMsgFromException(e, isShowToast: true);
+    }
+  }
+
+  Future sendComment(PostCommentEvent event, Emitter<PostState> emit) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      await postService.postCommentApi(
+          postId: event.postid,
+          comment: event.comment,
+          senderId: event.senderId);
+    } catch (e) {
+      log("Post comment Error: $e");
 
       emit(state.copyWith(isLoading: false));
       ErrorHandler.getErrorMsgFromException(e, isShowToast: true);

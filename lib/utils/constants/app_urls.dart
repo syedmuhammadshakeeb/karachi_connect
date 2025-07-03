@@ -15,4 +15,8 @@ class AppUrls {
       "ideas/summaries";
   static const String getProfiletEndpoint =
       "users/";
+  static const String postCommentEndpoint =
+      "ideas/comment";
+  static const String getCommentEndpoint =
+      "ideas/comment/";
 }
